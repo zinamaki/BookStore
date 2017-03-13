@@ -23,7 +23,7 @@ CREATE TABLE Book (
 	title VARCHAR(60) NOT NULL,
 	price INT NOT NULL,
 	category varchar(20) NOT NULL,
-	PRIMARY KEY(bid)
+	PRIMARY KEY(bid),
 	constraint book_category 
 	   foreign key (category) references Category
 );
@@ -128,17 +128,32 @@ INSERT INTO POItem (id, bid, price) VALUES (1, 'b001', 20);
 INSERT INTO POItem (id, bid, price) VALUES (2, 'b002', 201);
 INSERT INTO POItem (id, bid, price) VALUES (3, 'b003', 100);
 
+DROP TABLE EventType;
+
+CREATE TABLE EventType (
+    eventtype varchar(20) not null,
+    constraint event_pk
+        primary key(eventtype)
+);
+
+INSERT INTO EventType (eventtype) VALUES ('VIEW');
+INSERT INTO EventType (eventtype) VALUES ('CART');
+INSERT INTO EventType (eventtype) VALUES ('PURCHASE');
+
+
 /* visit to website
 * day: date
 * bid: unique identifier of Book
 * eventtype: status of purchase
 */
-Inserting TABLE if exists VisitEvent;
+DROP TABLE VisitEvent;
 CREATE TABLE VisitEvent (
-day varchar(8) NOT NULL,
-bid varchar(20) not null REFERENCES Book.bid,
-eventtype ENUM('VIEW','CART','PURCHASE') NOT NULL,
-FOREIGN KEY(bid) REFERENCES Book(bid)
+	day varchar(8) NOT NULL,
+	bid varchar(20) not null,
+	eventtype varchar(20) NOT NULL,
+	FOREIGN KEY(bid) REFERENCES Book(bid),
+	constraint event
+       foreign key (eventtype) references EventType
 );
 --#
 --# Dumping data for table 'VisitEvent'
