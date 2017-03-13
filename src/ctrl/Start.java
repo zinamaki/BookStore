@@ -35,7 +35,6 @@ public class Start extends HttpServlet {
 		
 		System.out.println("Username is: " + username + " Password is: " + password);
 		
-		
 	}
 
 	/**
