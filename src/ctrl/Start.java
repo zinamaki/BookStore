@@ -29,7 +29,7 @@ public class Start extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -39,12 +39,12 @@ public class Start extends HttpServlet {
 
 		if (registerPressed) {
 			System.out.println("Registration button pressed");
-			request.getRequestDispatcher("/Register.jspx").forward(request, response);
+			request.getRequestDispatcher("/RegisterPage.jspx").forward(request, response);
 		} else if (loginPressed) {
 			System.out.println("Login button pressed");
-			request.getRequestDispatcher("/Login.jspx").forward(request, response);
+			request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
 		} else {
-			request.getRequestDispatcher("/Login.jspx").forward(request, response);
+			request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
 		}
 
 		System.out.println("Username is: " + username + " Password is: " + password);
