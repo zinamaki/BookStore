@@ -29,6 +29,13 @@ public class Start extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.getRequestDispatcher("/Login.jspx").forward(request, response);
+		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		System.out.println("Username is: " + username + " Password is: " + password);
+		
+		
 	}
 
 	/**
