@@ -28,10 +28,18 @@ public class Start extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.getRequestDispatcher("/Login.jspx").forward(request, response);
+		
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		
+		boolean registerPressed = "Register".equals(request.getParameter("register"));
+		
+		if(registerPressed){
+			request.getRequestDispatcher("/Register.jspx").forward(request, response);
+		}else{
+			request.getRequestDispatcher("/Login.jspx").forward(request, response);
+		}
 		
 		System.out.println("Username is: " + username + " Password is: " + password);
 		
