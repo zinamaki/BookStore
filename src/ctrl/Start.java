@@ -34,9 +34,14 @@ public class Start extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		boolean registerPressed = "Register".equals(request.getParameter("register"));
+		boolean loginPressed = "Login".equals(request.getParameter("login"));
 		
 		if(registerPressed){
+			System.out.println("Registration button pressed");
 			request.getRequestDispatcher("/Register.jspx").forward(request, response);
+		}else if(loginPressed){
+			System.out.println("Login button pressed");
+			request.getRequestDispatcher("/Login.jspx").forward(request, response);
 		}else{
 			request.getRequestDispatcher("/Login.jspx").forward(request, response);
 		}
