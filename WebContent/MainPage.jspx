@@ -11,7 +11,7 @@
 <title>Book Store</title>
 </head>
 <body>
-	<p>Book Categories</p>
+	<p>Book Categories</p><button>Shopping Cart</button><br/><br/>
 
 	<button>Science fiction</button>
 	<button>Satire</button>
@@ -43,9 +43,9 @@
 	<button>Trilogy</button>
 	<button>Biographies</button>
 	<button>Autobiographies</button>
-	<button>Fantasy</button>
+	<button>Fantasy</button><br/>
 
-	<button>Shopping Cart</button>
+	
 
 </body>
 	</html>
