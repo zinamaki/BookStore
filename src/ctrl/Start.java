@@ -42,7 +42,7 @@ public class Start extends HttpServlet {
 			request.getRequestDispatcher("/RegisterPage.jspx").forward(request, response);
 		} else if (loginPressed) {
 			System.out.println("Login button pressed");
-			request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
+			request.getRequestDispatcher("/MainPage.jspx").forward(request, response);
 		} else {
 			request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
 		}

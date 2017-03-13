@@ -4,7 +4,7 @@
 	<Manager pathname="" />
 	<Resource name="jdbc/EECS" factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
 		type="javax.sql.DataSource" driverClassName="org.apache.derby.jdbc.EmbeddedDriver"
-		url="jdbc:derby:/Users/marin/Documents/workspace/ProjectB_Derby1.0/DB" />
+		url="jdbc:derby:/Users/minazaki/Documents/workspace/BookStore/WebContent/export/MyDB" />
 	<ResourceLink global="jdbc/EECS" name="jdbc/EECS"
 		type="javax.sql.DataSource" />
 </Context>
