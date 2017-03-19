@@ -1,20 +1,20 @@
-package model;
+package bean;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class User {
+public class UserBean {
 	private String name;
 	private String email;
 	private String password;
-	private Map<Date, Purchase> purchases;
+	private Map<Date, PurchaseBean> purchases;
 	
-	public User(String name, String email, String password){
+	public UserBean(String name, String email, String password){
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.purchases = new HashMap<Date, Purchase>();
+		this.purchases = new HashMap<Date, PurchaseBean>();
 	}
 	
 	public String getName() {
@@ -41,11 +41,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Map<Date, Purchase> getPurchases() {
+	public Map<Date, PurchaseBean> getPurchases() {
 		return purchases;
 	}
 
-	public void setPurchases(Map<Date, Purchase> purchases) {
+	public void setPurchases(Map<Date, PurchaseBean> purchases) {
 		this.purchases = purchases;
 	}
 	
