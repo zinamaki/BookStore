@@ -68,6 +68,29 @@ public class BookDAO {
 		
 	}
 	
+	public Map<String, BookBean> retrieveBySearch(String param) throws SQLException{
+		String query = "select * from books where title =" + param + " or authour = " + param;
+		Map<String, BookBean> rv = new HashMap<String, BookBean>();
+		Connection con = this.ds.getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		ResultSet r = p.executeQuery();
+		while(r.next()){
+				
+			String bid = r.getString("bid");
+			String category = r.getString("category");
+			int price = r.getInt("price");
+			String title = r.getString("title");
+			BookBean book = new BookBean(bid, title, price, category);
+			rv.put(bid, book);
+			
+		}
+		r.close();
+		p.close();
+		con.close();
+		return rv;
+		
+	}
+	
 	public Map<String, BookBean> retrieveByPriceRange(int start, int end) throws SQLException{
 		String query = "select * from books where price >= " + start + "and price <= " + end;
 		Map<String, BookBean> rv = new HashMap<String, BookBean>();
