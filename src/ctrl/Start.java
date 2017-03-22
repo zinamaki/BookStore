@@ -45,6 +45,12 @@ public class Start extends HttpServlet {
 			request.getRequestDispatcher("/MainPage.jspx").forward(request, response);
 		} else {
 			request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
+			
+			
+			
+			
+			
+			
 		}
 
 		System.out.println("Username is: " + username + " Password is: " + password);
