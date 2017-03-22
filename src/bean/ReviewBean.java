@@ -4,14 +4,14 @@ public class ReviewBean {
 
 	/*********Attributes************/
 	private String bid;
-	private String username;
+	private int uid;
 	private int rating;
 	private String review;
 	
 	/*********Constructor************/
-	public ReviewBean(String bid, String username, int rating, String review) {
+	public ReviewBean(String bid, int uid, int rating, String review) {
 		this.bid = bid;
-		this.username = username;
+		this.uid = uid;
 		this.rating = rating;
 		this.review = review;
 	}
@@ -35,12 +35,12 @@ public class ReviewBean {
 		this.bid = bid;
 	}
 
-	public String getUsername() {
-		return username;
+	public int getUid() {
+		return uid;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 
 	public int getRating() {
