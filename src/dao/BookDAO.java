@@ -34,9 +34,10 @@ public class BookDAO {
 				
 			String bid = r.getString("bid");
 			String title = r.getString("title");
+			String author = r.getString("author");
 			String category = r.getString("category");
 			int price = r.getInt("price");
-			BookBean book = new BookBean(bid, title, price, category);
+			BookBean book = new BookBean(bid, title, author, price, category);
 			rv.put(bid, book);
 			
 		}
@@ -54,13 +55,13 @@ public class BookDAO {
 	}
 	
 	public Map<String, BookBean> retrieveByTitle(String title) throws SQLException{
-		String query = "select * from books where title =" + title;
+		String query = "select * from books where title like '%" + title + "%'";
 		return runQuery(query);
 		
 	}
 	
 	public Map<String, BookBean> retrieveBySearch(String param) throws SQLException{
-		String query = "select * from books where title =" + param + " or authour = " + param;
+		String query = "select * from books where title like '%" + param + "%' or authour like '%" + param + " %'";
 		return runQuery(query);
 		
 	}

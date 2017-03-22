@@ -21,6 +21,7 @@ DROP TABLE Book;
 CREATE TABLE Book (
 	bid VARCHAR(20) NOT NULL,
 	title VARCHAR(60) NOT NULL,
+	author VARCHAR(20) NOT NULL,
 	price INT NOT NULL,
 	category varchar(20) NOT NULL,
 	PRIMARY KEY(bid),
@@ -30,9 +31,9 @@ CREATE TABLE Book (
 --#
 --# Adding data for table 'Book'
 --#
-INSERT INTO Book (bid, title, price, category) VALUES ('b001', 'Little Prince', 20, 'Fiction');
-INSERT INTO Book (bid, title, price, category) VALUES ('b002','Physics', 201, 'Science');
-INSERT INTO Book (bid, title, price, category) VALUES ('b003','Mechanics' ,100,'Engineering');
+INSERT INTO Book (bid, title, author, price, category) VALUES ('b001', 'Little Prince', 'John Johnson',  20, 'Fiction');
+INSERT INTO Book (bid, title, author, price, category) VALUES ('b002','Physics', 'Jeff Sions', 201, 'Science');
+INSERT INTO Book (bid, title, author, price, category) VALUES ('b003','Mechanics' ,'John Jims', 100,'Engineering');
 
 /* Address
 * id: address id

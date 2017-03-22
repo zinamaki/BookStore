@@ -3,13 +3,15 @@ package bean;
 public class BookBean {
 	private String bid;
 	private String title;
+	private String author;
 	private int price;
 	private String category;
 	
-	public BookBean(String bid, String title, int price, String category) {
+	public BookBean(String bid, String title, String author, int price, String category) {
 		super();
 		this.bid = bid;
 		this.title = title;
+		this.author = author;
 		this.price = price;
 		this.category = category;
 	}
@@ -25,6 +27,13 @@ public class BookBean {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 	public int getPrice() {
 		return price;
