@@ -21,16 +21,19 @@ import org.xml.sax.SAXException;
 import bean.BookBean;
 import dao.BookDAO;
 import dao.PurchaseDAO;
+import dao.ReviewDAO;
 
 public class SIS {
 
 	private BookDAO bookDAO;
 	private PurchaseDAO purchaseDAO;
+	private ReviewDAO reviewDAO;
 
 	public SIS() throws ClassNotFoundException {
 		super();
 		this.bookDAO = new BookDAO();
 		this.purchaseDAO = new PurchaseDAO();
+		this.reviewDAO = new ReviewDAO();
 	}
 
 	public Map<String, BookBean> retrieveAllBooks() {
