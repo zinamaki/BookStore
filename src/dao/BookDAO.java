@@ -24,8 +24,8 @@ public class BookDAO {
 		}
 	}
 	
-	public Map<String, BookBean> retrieveFromCategory(String category) throws SQLException{
-		String query = "select * from books where category =" + category;
+	public Map<String, BookBean> runQuery(String query) throws SQLException{
+		
 		Map<String, BookBean> rv = new HashMap<String, BookBean>();
 		Connection con = this.ds.getConnection();
 		PreparedStatement p = con.prepareStatement(query);
@@ -34,6 +34,7 @@ public class BookDAO {
 				
 			String bid = r.getString("bid");
 			String title = r.getString("title");
+			String category = r.getString("category");
 			int price = r.getInt("price");
 			BookBean book = new BookBean(bid, title, price, category);
 			rv.put(bid, book);
@@ -43,74 +44,36 @@ public class BookDAO {
 		p.close();
 		con.close();
 		return rv;
+		
+	}
+	
+	public Map<String, BookBean> retrieveFromCategory(String category) throws SQLException{
+		String query = "select * from books where category =" + category;
+		return runQuery(query);
 		
 	}
 	
 	public Map<String, BookBean> retrieveByTitle(String title) throws SQLException{
 		String query = "select * from books where title =" + title;
-		Map<String, BookBean> rv = new HashMap<String, BookBean>();
-		Connection con = this.ds.getConnection();
-		PreparedStatement p = con.prepareStatement(query);
-		ResultSet r = p.executeQuery();
-		while(r.next()){
-				
-			String bid = r.getString("bid");
-			String category = r.getString("category");
-			int price = r.getInt("price");
-			BookBean book = new BookBean(bid, title, price, category);
-			rv.put(bid, book);
-			
-		}
-		r.close();
-		p.close();
-		con.close();
-		return rv;
+		return runQuery(query);
 		
 	}
 	
 	public Map<String, BookBean> retrieveBySearch(String param) throws SQLException{
 		String query = "select * from books where title =" + param + " or authour = " + param;
-		Map<String, BookBean> rv = new HashMap<String, BookBean>();
-		Connection con = this.ds.getConnection();
-		PreparedStatement p = con.prepareStatement(query);
-		ResultSet r = p.executeQuery();
-		while(r.next()){
-				
-			String bid = r.getString("bid");
-			String category = r.getString("category");
-			int price = r.getInt("price");
-			String title = r.getString("title");
-			BookBean book = new BookBean(bid, title, price, category);
-			rv.put(bid, book);
-			
-		}
-		r.close();
-		p.close();
-		con.close();
-		return rv;
+		return runQuery(query);
+		
+	}
+	
+	public Map<String, BookBean> retrieveAllBooks() throws SQLException{
+		String query = "select * from books";
+		return runQuery(query);
 		
 	}
 	
 	public Map<String, BookBean> retrieveByPriceRange(int start, int end) throws SQLException{
 		String query = "select * from books where price >= " + start + "and price <= " + end;
-		Map<String, BookBean> rv = new HashMap<String, BookBean>();
-		Connection con = this.ds.getConnection();
-		PreparedStatement p = con.prepareStatement(query);
-		ResultSet r = p.executeQuery();
-		while(r.next()){
-				
-			String bid = r.getString("bid");
-			String title = r.getString("title");
-			String category = r.getString("category");
-			int price = r.getInt("price");
-			BookBean book = new BookBean(bid, title, price, category);
-			rv.put(bid, book);
-			
-		}
-		r.close();
-		p.close();
-		con.close();
-		return rv;
+		return runQuery(query);
 		
 	}
 	
