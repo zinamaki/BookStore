@@ -69,8 +69,8 @@ INSERT INTO Status (status) VALUES ('ORDERED');
 INSERT INTO Status (status) VALUES ('PROCESSED');
 INSERT INTO Status (status) VALUES ('DENIED');
 
-DROP TABLE User;
-CREATE TABLE USER (
+DROP TABLE Users;
+CREATE TABLE Users (
     uid INT NOT NULL PRIMARY KEY,
     fname VARCHAR(20) NOT NULL,
     lname VARCHAR(20) NOT NULL,
@@ -80,9 +80,9 @@ CREATE TABLE USER (
        check (uid > 0)
 );
 
-INSERT INTO User (uid, fname, lname, email, password) VALUES (1, 'John', 'White', 'john@gmail.com', 'hello123');
-INSERT INTO User (uid, fname, lname, email, password) VALUES (2, 'Peter', 'Black', 'peter@gmail.com', 'hello122');
-INSERT INTO User (uid, fname, lname, email, password) VALUES (3, 'Andy', 'Green', 'andy@gmail.com', 'hello125');
+INSERT INTO Users (uid, fname, lname, email, password) VALUES (1, 'John', 'White', 'john@gmail.com', 'hello123');
+INSERT INTO Users (uid, fname, lname, email, password) VALUES (2, 'Peter', 'Black', 'peter@gmail.com', 'hello122');
+INSERT INTO Users (uid, fname, lname, email, password) VALUES (3, 'Andy', 'Green', 'andy@gmail.com', 'hello125');
 
 --#
 --#
@@ -95,34 +95,35 @@ INSERT INTO User (uid, fname, lname, email, password) VALUES (3, 'Andy', 'Green'
 DROP TABLE PO;
 CREATE TABLE PO (
 	id INT NOT NULL ,
-	fname VARCHAR(20) NOT NULL,
-	lname VARCHAR(20) NOT NULL,
+	uid INT NOT NULL,
 	status VARCHAR(20) NOT NULL,
 	address INT NOT NULL,
 	PRIMARY KEY(id),
 --	INDEX (address),
 	FOREIGN KEY (address) REFERENCES Address (id) ON DELETE CASCADE,
-	FOREIGN KEY (fname, lname) REFERENCES User (fname, lname) ON DELETE CASCADE,
+	FOREIGN KEY (uid) REFERENCES Users (uid) ON DELETE CASCADE,
 	constraint po_id_pos
        check (id > 0),
     constraint stat 
        foreign key (status) references Status,
     constraint add_pos
-       check (address > 0)
+       check (address > 0),
+    constraint uid_pos_p
+       check (uid > 0)
 );
 --#
 --# Inserting data for table 'PO'
 --#
-INSERT INTO PO (id, fname, lname, status, address) VALUES (1, 'John', 'White', 'PROCESSED', 1);
-INSERT INTO PO (id, fname, lname, status, address) VALUES (2, 'Peter', 'Black', 'DENIED', 2);
-INSERT INTO PO (id, fname, lname, status, address) VALUES (3, 'Andy', 'Green', 'ORDERED', 3);
+INSERT INTO PO (id, uid, status, address) VALUES (1, 1, 'PROCESSED', 1);
+INSERT INTO PO (id, uid, status, address) VALUES (2, 2, 'DENIED', 2);
+INSERT INTO PO (id, uid, status, address) VALUES (3, 3, 'ORDERED', 3);
 
 /* Items on order
 * id : purchase order id
 * bid: unique identifier of Book
 * price: unit price
 */
-DROP TABLE if exists POItem;
+DROP TABLE POItem;
 CREATE TABLE POItem (
 	id INT NOT NULL,
 	bid VARCHAR(20) NOT NULL,
@@ -181,16 +182,20 @@ INSERT INTO VisitEvent (day, bid, eventtype) VALUES ('12252015', 'b001', 'PURCHA
 DROP TABLE Review;
 CREATE TABLE Review (
     bid varchar(20) NOT NULL,
-    email varchar(20) NOT NULL,
+    uid INT NOT NULL,
     rating int NOT NULL,
     review varchar(100) NOT NULL,
-    PRIMARY KEY(bid, email),
+    PRIMARY KEY(bid, uid),
     FOREIGN KEY(bid) REFERENCES Book(bid) ON DELETE CASCADE,
-    FOREIGN KEY(email) REFERENCES User(email) ON DELETE CASCADE,
-    constraint poit_bid_pos
-       check (bid > 0)
+    FOREIGN KEY(uid) REFERENCES Users(uid) ON DELETE CASCADE,
+    constraint poit_uid_pos
+       check (uid > 0),
     constraint star_rating
        check (rating >= 1 and rating <= 5)
 );
 
-INSERT INTO Review (bid, email, rating, review) VALUES ('b001', 'john@gmail.com', 4, 'I love this book');
+INSERT INTO Review (bid, uid, rating, review) VALUES ('b001', 1, 4, 'I love this book');
+INSERT INTO Review (bid, uid, rating, review) VALUES ('b002', 2, 3, 'I like this book');
+INSERT INTO Review (bid, uid, rating, review) VALUES ('b003', 3, 1, 'I hate this book');
+
+
