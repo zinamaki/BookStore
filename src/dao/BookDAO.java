@@ -45,9 +45,9 @@ public class BookDAO {
 				String title = r.getString("TITLE") ;
 				String price = r.getString("PRICE");
 				String category = r.getString("CATEGORY");
-				//String author = r.getString("AUTHOR");
+				String author = r.getString("AUTHOR");
 
-				BookBean tmp = new BookBean(bid, title, "author", price, category);
+				BookBean tmp = new BookBean(bid, title, author, price, category);
 
 				String counterString = Integer.toString(counter);
 
@@ -83,7 +83,7 @@ public class BookDAO {
 	
 	public Map<String, BookBean> retrieveBySearch(String param) throws SQLException{
 
-		String query = "select * from book where title like '%" + param + "%' or authour like '%" + param + " %'";
+		String query = "select * from book where title like '%" + param + "%' or author like '%" + param + " %'";
 		return runQuery(query);
 		
 	}

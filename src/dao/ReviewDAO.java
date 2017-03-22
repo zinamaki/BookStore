@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,15 +33,23 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 		Connection con = this.ds.getConnection();
 		PreparedStatement p = con.prepareStatement(query);
 		ResultSet r = p.executeQuery();
+		int counter = 0;
 		while(r.next()){
 				
 			String bid = r.getString("bid");
 			int uid = r.getInt("uid");
+			String query2 = "select fName, lname from Users where uid = " + uid;
+			PreparedStatement p2 = con.prepareStatement(query2);
+			ResultSet r2 = p2.executeQuery();
+			
+			String fullName = r2.getString("fname") + " " + r2.getString("lname");
 			int rating = r.getInt("rating");
 			String review = r.getString("review");
-			ReviewBean reviewBean = new ReviewBean(bid, uid, rating, review);
-			rv.put(bid + uid, reviewBean);
 			
+			ReviewBean reviewBean = new ReviewBean(bid, uid, fullName, rating, review);
+			
+			rv.put(Integer.toString(counter), reviewBean);
+			counter ++;
 		}
 		r.close();
 		p.close();
@@ -49,33 +58,51 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 		
 	}
 	
-	public Map<String, ReviewBean> retrieveFromCategory(String category) throws SQLException{
-		String query = "select * from books where category =" + category;
+	public Map<String, ReviewBean> retrieveFromBid(String bid) throws SQLException{
+		String query = "select * from review where bid =" + bid;
 		return runQuery(query);
 		
 	}
 	
-	public Map<String, ReviewBean> retrieveByTitle(String title) throws SQLException{
-		String query = "select * from books where title =" + title;
+	public Map<String, ReviewBean> retrieveByUser(int uid) throws SQLException{
+		String query = "select * from review where uid =" + uid;
 		return runQuery(query);
 		
 	}
 	
-	public Map<String, ReviewBean> retrieveBySearch(String param) throws SQLException{
-		String query = "select * from books where title =" + param + " or authour = " + param;
+	public Map<String, ReviewBean> retrieveByRating(int rating) throws SQLException{
+		String query = "select * from review where rating =" + rating;
 		return runQuery(query);
 		
 	}
 	
 	public Map<String, ReviewBean> retrieveAllBooks() throws SQLException{
-		String query = "select * from books";
+		String query = "select * from review";
 		return runQuery(query);
 		
 	}
 	
-	public Map<String, ReviewBean> retrieveByPriceRange(int start, int end) throws SQLException{
-		String query = "select * from books where price >= " + start + "and price <= " + end;
+	public Map<String, ReviewBean> retrieveByStarRange(int start, int end) throws SQLException{
+		String query = "select * from review where rating >= " + start + "and rating <= " + end;
 		return runQuery(query);
 		
 	}
+	
+	public void addReview(String bid, int uid, int rating, String review){
+		try{
+			Connection con = this.ds.getConnection();
+			Statement st = con.createStatement();
+			String update = "INSERT INTO Review (bid, uid, rating, review) VALUES ('" 
+					+ bid + "', " + uid + ", " + rating + ", '" + review + "')";
+			st.executeUpdate(update);
+			st.close();
+			con.close();
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+	}
+	
+	
 }
