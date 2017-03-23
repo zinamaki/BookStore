@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.naming.InitialContext;
@@ -60,6 +61,30 @@ public class UserDAO {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+		return user;
+	}
+	
+	public UserBean loginUser(String email, String password) throws SQLException{
+		UserBean user = null;
+		
+		String query = "select * from customer where email = '" + email + "' and password = '" + password + "'"; 
+		
+		Connection con = this.ds.getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		ResultSet r = p.executeQuery();
+		
+		while (r.next()){
+			int uid = r.getInt("uid");
+			String fname = r.getString("fname");
+			String lname = r.getString("lname");
+			
+			user = new UserBean(uid, fname, lname, email, password);
+		}
+		
+		r.close();
+		p.close();
+		con.close();
+		
 		return user;
 	}
 	
