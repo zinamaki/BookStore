@@ -35,28 +35,6 @@ INSERT INTO Book (bid, title, author, price, category) VALUES ('b001', 'Little P
 INSERT INTO Book (bid, title, author, price, category) VALUES ('b002','Physics', 'Jeff Sions', 201, 'Science');
 INSERT INTO Book (bid, title, author, price, category) VALUES ('b003','Mechanics' ,'John Jims', 100,'Engineering');
 
-/* Address
-* id: address id
-*
-*/
-DROP TABLE Address;
-CREATE TABLE Address (
-	id INT NOT NULL  PRIMARY KEY, /*GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),*/
-	street VARCHAR(100) NOT NULL,
-	province VARCHAR(20) NOT NULL,
-	country VARCHAR(20) NOT NULL,
-	zip VARCHAR(20) NOT NULL,
-	phone VARCHAR(20),
-	constraint id_pos
-	   check (id > 0)
-);
---#
---# Inserting data for table 'address'
---#
-INSERT INTO Address (id, street, province, country, zip, phone) VALUES (1, '123 Yonge St', 'ON', 'Canada', 'K1E 6T5' ,'647-123-4567');
-INSERT INTO Address (id, street, province, country, zip, phone) VALUES (2, '445 Avenue rd', 'ON', 'Canada', 'M1C 6K5' ,'416-123-8569');
-INSERT INTO Address (id, street, province, country, zip, phone) VALUES (3, '789 Keele St.', 'ON', 'Canada', 'K3C 9T5' ,'416-123-9568');
-
 
 DROP TABLE Status;
 
@@ -72,18 +50,47 @@ INSERT INTO Status (status) VALUES ('DENIED');
 
 DROP TABLE Users;
 CREATE TABLE Users (
-    uid INT NOT NULL PRIMARY KEY,
+    uid INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     fname VARCHAR(20) NOT NULL,
     lname VARCHAR(20) NOT NULL,
     email VARCHAR(20) NOT NULL,
     password VARCHAR(20) NOT NULL,
+    PRIMARY KEY(uid),
     constraint uid_pos
        check (uid > 0)
 );
 
-INSERT INTO Users (uid, fname, lname, email, password) VALUES (1, 'John', 'White', 'john@gmail.com', 'hello123');
-INSERT INTO Users (uid, fname, lname, email, password) VALUES (2, 'Peter', 'Black', 'peter@gmail.com', 'hello122');
-INSERT INTO Users (uid, fname, lname, email, password) VALUES (3, 'Andy', 'Green', 'andy@gmail.com', 'hello125');
+INSERT INTO Users (fname, lname, email, password) VALUES ('John', 'White', 'john@gmail.com', 'hello123');
+INSERT INTO Users (fname, lname, email, password) VALUES ('Peter', 'Black', 'peter@gmail.com', 'hello122');
+INSERT INTO Users (fname, lname, email, password) VALUES ('Andy', 'Green', 'andy@gmail.com', 'hello125');
+
+/* Address
+* id: address id
+*
+*/
+DROP TABLE Address;
+CREATE TABLE Address (
+    id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    uid INT NOT NULL,
+    street VARCHAR(100) NOT NULL,
+    province VARCHAR(20) NOT NULL,
+    country VARCHAR(20) NOT NULL,
+    zip VARCHAR(20) NOT NULL,
+    phone VARCHAR(20),
+    PRIMARY KEY(id),
+    FOREIGN KEY(uid) REFERENCES Users(uid) ON DELETE CASCADE,
+    constraint id_pos
+       check (id > 0),
+    constraint uid_pos_p
+       check (id > 0)
+);
+--#
+--# Inserting data for table 'address'
+--#
+INSERT INTO Address (uid, street, province, country, zip, phone) VALUES (1, '123 Yonge St', 'ON', 'Canada', 'K1E 6T5' ,'647-123-4567');
+INSERT INTO Address (uid, street, province, country, zip, phone) VALUES (2, '445 Avenue rd', 'ON', 'Canada', 'M1C 6K5' ,'416-123-8569');
+INSERT INTO Address (uid, street, province, country, zip, phone) VALUES (3, '789 Keele St.', 'ON', 'Canada', 'K3C 9T5' ,'416-123-9568');
+
 
 --#
 --#
@@ -95,7 +102,7 @@ INSERT INTO Users (uid, fname, lname, email, password) VALUES (3, 'Andy', 'Green
 */
 DROP TABLE PO;
 CREATE TABLE PO (
-	id INT NOT NULL ,
+	id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 	uid INT NOT NULL,
 	status VARCHAR(20) NOT NULL,
 	address INT NOT NULL,
@@ -109,15 +116,15 @@ CREATE TABLE PO (
        foreign key (status) references Status,
     constraint add_pos
        check (address > 0),
-    constraint uid_pos_p
+    constraint uid_pos_po
        check (uid > 0)
 );
 --#
 --# Inserting data for table 'PO'
 --#
-INSERT INTO PO (id, uid, status, address) VALUES (1, 1, 'PROCESSED', 1);
-INSERT INTO PO (id, uid, status, address) VALUES (2, 2, 'DENIED', 2);
-INSERT INTO PO (id, uid, status, address) VALUES (3, 3, 'ORDERED', 3);
+INSERT INTO PO (uid, status, address) VALUES (1, 'PROCESSED', 1);
+INSERT INTO PO (uid, status, address) VALUES (2, 'DENIED', 2);
+INSERT INTO PO (uid, status, address) VALUES (3, 'ORDERED', 3);
 
 /* Items on order
 * id : purchase order id
@@ -199,4 +206,13 @@ INSERT INTO Review (bid, uid, rating, review) VALUES ('b001', 1, 4, 'I love this
 INSERT INTO Review (bid, uid, rating, review) VALUES ('b002', 2, 3, 'I like this book');
 INSERT INTO Review (bid, uid, rating, review) VALUES ('b003', 3, 1, 'I hate this book');
 
-
+--DROP TABLE Review;
+--DROP TABLE VisitEvent;
+--DROP TABLE EventType;
+--DROP TABLE POItem;
+--DROP TABLE PO;
+--DROP TABLE Address;
+--DROP TABLE Users;
+--DROP TABLE Status;
+--DROP TABLE Book;
+--DROP TABLE Category;

@@ -41,7 +41,7 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 			String query2 = "select fName, lname from Users where uid = " + uid;
 			PreparedStatement p2 = con.prepareStatement(query2);
 			ResultSet r2 = p2.executeQuery();
-			
+			r2.next();
 			String fullName = r2.getString("fname") + " " + r2.getString("lname");
 			int rating = r.getInt("rating");
 			String review = r.getString("review");
@@ -50,6 +50,10 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 			
 			rv.put(Integer.toString(counter), reviewBean);
 			counter ++;
+			
+			p2.close();
+			r2.close();
+			
 		}
 		r.close();
 		p.close();
