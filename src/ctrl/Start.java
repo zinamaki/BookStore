@@ -20,7 +20,7 @@ public class Start extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	SIS database;
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -30,22 +30,23 @@ public class Start extends HttpServlet {
 	}
 
 	public void init() {
-	
-			try {
-				database = new SIS();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
+
+		try {
+			database = new SIS();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
@@ -53,32 +54,51 @@ public class Start extends HttpServlet {
 		boolean loginPressed = "Login".equals(request.getParameter("login"));
 
 		if (registerPressed) {
-			System.out.println("Registration button pressed");
-			request.getRequestDispatcher("/RegisterPage.jspx").forward(request, response);
-		} else if (loginPressed) {
-			System.out.println("Login button pressed");
-			request.getRequestDispatcher("/MainPage.jspx").forward(request, response);
-		} else {
-			
-			try {
-				database = new SIS();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			String[][] display = getAllBooks();
 
-			//System.out.println(display.length);
+			displayRegisterPage(request, response);
+
+		} else if (loginPressed) {
 			
-			request.setAttribute("messageList", display);
-			request.getRequestDispatcher("/MainPage.jspx").forward(request, response);
+			displayLoginPage(request, response);
 			
-			
-			
-			
+		} else {
+
+			displayMainPage(request, response);
+
 		}
 
 		System.out.println("Username is: " + username + " Password is: " + password);
+
+	}
+
+	private void displayMainPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			database = new SIS();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String[][] display = getAllBooks();
+
+		request.setAttribute("messageList", display);
+		request.getRequestDispatcher("/MainPage.jspx").forward(request, response);
+
+	}
+
+	private void displayLoginPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		System.out.println("Login button pressed");
+		request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
+
+	}
+
+	private void displayRegisterPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		System.out.println("Registration button pressed");
+		request.getRequestDispatcher("/RegisterPage.jspx").forward(request, response);
 
 	}
 
@@ -89,7 +109,7 @@ public class Start extends HttpServlet {
 			Map<String, BookBean> result = this.database.retrieveAllBooks();
 
 			System.out.println(result.size());
-			
+
 			String[][] output = new String[result.size()][5];
 
 			for (int i = 0; i < result.size(); i++) {
@@ -98,8 +118,8 @@ public class Start extends HttpServlet {
 				String title = result.get(Integer.toString(i)).getTitle();
 				String price = result.get(Integer.toString(i)).getPrice();
 				String category = result.get(Integer.toString(i)).getCategory();
-				String author = "author";
-				
+				String author = result.get(Integer.toString(i)).getAuthor();
+
 				output[i][0] = bid;
 				output[i][1] = title;
 				output[i][2] = price;
@@ -113,7 +133,7 @@ public class Start extends HttpServlet {
 		}
 
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

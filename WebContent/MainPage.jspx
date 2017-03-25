@@ -13,7 +13,7 @@
 <body>
 	<p>Book Categories</p><button>Shopping Cart</button><br/><br/>
 
-	<button>Science fiction</button>
+	<!-- <button>Science fiction</button>
 	<button>Satire</button>
 	<button>Drama</button>
 	<button>Action and Adventure</button>
@@ -43,7 +43,7 @@
 	<button>Trilogy</button>
 	<button>Biographies</button>
 	<button>Autobiographies</button>
-	<button>Fantasy</button><br/>
+	<button>Fantasy</button><br/> -->
 
 			<table id="result" border="1">
 			<tr>

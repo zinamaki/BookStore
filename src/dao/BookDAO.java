@@ -33,9 +33,7 @@ public class BookDAO {
 		try {
 			
 			con = this.ds.getConnection();
-			System.out.println("Error connectin");
 			PreparedStatement p = con.prepareStatement(query);
-			System.out.println("Error preparing statement");
 			ResultSet r = p.executeQuery();
 			int counter = 0;
 			
