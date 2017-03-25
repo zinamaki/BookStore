@@ -1,10 +1,20 @@
+DROP TABLE Review;
+DROP TABLE VisitEvent;
+DROP TABLE EventType;
+DROP TABLE POItem;
+DROP TABLE PO;
+DROP TABLE Address;
+DROP TABLE Users;
+DROP TABLE Status;
+DROP TABLE Book;
+DROP TABLE Category;
+
 /** bid: unique identifier of Book (like ISBN)
 * title: title of Book
 * price: unit price WHEN ordered
 * author: name of authors
 * category: as specified
 */
-DROP TABLE Category;
 
 CREATE TABLE Category (
     category varchar(20) not null,
@@ -16,7 +26,6 @@ INSERT INTO Category (category) VALUES ('Fiction');
 INSERT INTO Category (category) VALUES ('Science');
 INSERT INTO Category (category) VALUES ('Engineering');
 
-DROP TABLE Book;
 
 CREATE TABLE Book (
 	bid VARCHAR(20) NOT NULL,
@@ -36,8 +45,6 @@ INSERT INTO Book (bid, title, author, price, category) VALUES ('b002','Physics',
 INSERT INTO Book (bid, title, author, price, category) VALUES ('b003','Mechanics' ,'John Jims', 100,'Engineering');
 
 
-DROP TABLE Status;
-
 CREATE TABLE Status (
     status varchar(20) not null,
     constraint stat_pk
@@ -48,7 +55,6 @@ INSERT INTO Status (status) VALUES ('ORDERED');
 INSERT INTO Status (status) VALUES ('PROCESSED');
 INSERT INTO Status (status) VALUES ('DENIED');
 
-DROP TABLE Users;
 CREATE TABLE Users (
     uid INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     fname VARCHAR(20) NOT NULL,
@@ -68,7 +74,6 @@ INSERT INTO Users (fname, lname, email, password) VALUES ('Andy', 'Green', 'andy
 * id: address id
 *
 */
-DROP TABLE Address;
 CREATE TABLE Address (
     id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     uid INT NOT NULL,
@@ -100,7 +105,6 @@ INSERT INTO Address (uid, street, province, country, zip, phone) VALUES (3, '789
 * id: purchase order id
 * status:status of purchase
 */
-DROP TABLE PO;
 CREATE TABLE PO (
 	id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 	uid INT NOT NULL,
@@ -131,7 +135,6 @@ INSERT INTO PO (uid, status, address) VALUES (3, 'ORDERED', 3);
 * bid: unique identifier of Book
 * price: unit price
 */
-DROP TABLE POItem;
 CREATE TABLE POItem (
 	id INT NOT NULL,
 	bid VARCHAR(20) NOT NULL,
@@ -153,8 +156,6 @@ INSERT INTO POItem (id, bid, price) VALUES (1, 'b001', 20);
 INSERT INTO POItem (id, bid, price) VALUES (2, 'b002', 201);
 INSERT INTO POItem (id, bid, price) VALUES (3, 'b003', 100);
 
-DROP TABLE EventType;
-
 CREATE TABLE EventType (
     eventtype varchar(20) not null,
     constraint event_pk
@@ -171,7 +172,6 @@ INSERT INTO EventType (eventtype) VALUES ('PURCHASE');
 * bid: unique identifier of Book
 * eventtype: status of purchase
 */
-DROP TABLE VisitEvent;
 CREATE TABLE VisitEvent (
 	day varchar(8) NOT NULL,
 	bid varchar(20) not null,
@@ -187,7 +187,6 @@ INSERT INTO VisitEvent (day, bid, eventtype) VALUES ('12242015', 'b001', 'CART')
 INSERT INTO VisitEvent (day, bid, eventtype) VALUES ('12252015', 'b001', 'PURCHASE');
 
 
-DROP TABLE Review;
 CREATE TABLE Review (
     bid varchar(20) NOT NULL,
     uid INT NOT NULL,
@@ -205,14 +204,3 @@ CREATE TABLE Review (
 INSERT INTO Review (bid, uid, rating, review) VALUES ('b001', 1, 4, 'I love this book');
 INSERT INTO Review (bid, uid, rating, review) VALUES ('b002', 2, 3, 'I like this book');
 INSERT INTO Review (bid, uid, rating, review) VALUES ('b003', 3, 1, 'I hate this book');
-
---DROP TABLE Review;
---DROP TABLE VisitEvent;
---DROP TABLE EventType;
---DROP TABLE POItem;
---DROP TABLE PO;
---DROP TABLE Address;
---DROP TABLE Users;
---DROP TABLE Status;
---DROP TABLE Book;
---DROP TABLE Category;
