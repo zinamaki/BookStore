@@ -22,18 +22,21 @@ import bean.BookBean;
 import dao.BookDAO;
 import dao.PurchaseDAO;
 import dao.ReviewDAO;
+import dao.UserDAO;
 
 public class SIS {
 
 	private BookDAO bookDAO;
 	private PurchaseDAO purchaseDAO;
 	private ReviewDAO reviewDAO;
+	private UserDAO userDAO;
 
 	public SIS() throws ClassNotFoundException {
 		super();
 		this.bookDAO = new BookDAO();
 		this.purchaseDAO = new PurchaseDAO();
 		this.reviewDAO = new ReviewDAO();
+		this.userDAO = new UserDAO();
 	}
 
 	public Map<String, BookBean> retrieveAllBooks() {
