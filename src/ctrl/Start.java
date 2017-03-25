@@ -47,9 +47,6 @@ public class Start extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-
 		boolean registerPressed = "Register".equals(request.getParameter("register"));
 		boolean loginPressed = "Login".equals(request.getParameter("login"));
 		boolean shoppingPressed = "Shopping Cart".equals(request.getParameter("shopping"));
@@ -71,8 +68,6 @@ public class Start extends HttpServlet {
 			displayMainPage(request, response);
 
 		}
-
-		System.out.println("Username is: " + username + " Password is: " + password);
 
 	}
 
@@ -99,6 +94,11 @@ public class Start extends HttpServlet {
 	private void displayLoginPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		// now we check the database for a matching result
+		
 		System.out.println("Login button pressed");
 		request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
 
