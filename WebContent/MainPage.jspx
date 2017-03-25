@@ -71,10 +71,9 @@
 			
 			<c:forEach var="msg" items="${requestScope.messageList}">
                 <button>
-                    ${msg[1]}
-                    ${msg[2]}
-                    ${msg[3]}
-                    ${msg[4]}
+                    ${msg[1]} by ${msg[4]} -  
+                    ${msg[3]} - 
+                     $${msg[2]}
                 </button>
                 <br/>
             </c:forEach>    	
