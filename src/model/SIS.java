@@ -19,6 +19,7 @@ import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
 
 import bean.BookBean;
+import bean.UserBean;
 import dao.BookDAO;
 import dao.PurchaseDAO;
 import dao.ReviewDAO;
@@ -47,6 +48,18 @@ public class SIS {
 			return null;
 		}
 
+	}
+
+	public void addNewUser(String email, String password, String fname, String lname, String address, String province,
+			String country, String zip, String phone) {
+		
+		this.userDAO.addNewUser(email, password, fname, lname, address, province, country, zip, phone);
+		
+	}
+	
+	public boolean loginUser(String email, String password){
+		return false;
+		
 	}
 
 	

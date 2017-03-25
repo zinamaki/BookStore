@@ -50,20 +50,20 @@ public class Start extends HttpServlet {
 		boolean registerPressed = "Register".equals(request.getParameter("register"));
 		boolean loginPressed = "Login".equals(request.getParameter("login"));
 		boolean shoppingPressed = "Shopping Cart".equals(request.getParameter("shopping"));
-		
+
 		if (registerPressed) {
 
 			displayRegisterPage(request, response);
 
 		} else if (loginPressed) {
-			
+
 			displayLoginPage(request, response);
-			
-		} else if(shoppingPressed){
-			
-			displayShoppingPage(request,response);
-			
-		}	else {
+
+		} else if (shoppingPressed) {
+
+			displayShoppingPage(request, response);
+
+		} else {
 
 			displayMainPage(request, response);
 
@@ -71,19 +71,16 @@ public class Start extends HttpServlet {
 
 	}
 
-	private void displayShoppingPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void displayShoppingPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("Shopping cart button pressed");
 		request.getRequestDispatcher("/ShoppingCartPage.jspx").forward(request, response);
-		
+
 	}
 
 	private void displayMainPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			database = new SIS();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		String[][] display = getAllBooks();
 
 		request.setAttribute("messageList", display);
@@ -96,9 +93,9 @@ public class Start extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
+
 		// now we check the database for a matching result
-		
+
 		System.out.println("Login button pressed");
 		request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
 
@@ -106,6 +103,30 @@ public class Start extends HttpServlet {
 
 	private void displayRegisterPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String fname = request.getParameter("fname");
+		String lname = request.getParameter("lname");
+		String address = request.getParameter("address");
+		String province = request.getParameter("province");
+		String country = request.getParameter("country");
+		String zip = request.getParameter("zip");
+		String phone = request.getParameter("phone");
+
+		if (email != null && password != null && fname != null && lname != null && address != null && province != null
+				&& country != null && zip != null && phone != null) {
+			if (!email.equals("") && !password.equals("") && !fname.equals("") && !lname.equals("")
+					&& !address.equals("") && !province.equals("") && !country.equals("") && !zip.equals("")
+					&& !phone.equals("")) {
+				database.addNewUser(email, password, fname, lname, address, province, country, zip, phone);
+			} else {
+				System.out.println("you must input all fields");
+			}
+
+		} else {
+			// dont do anything
+		}
 
 		System.out.println("Registration button pressed");
 		request.getRequestDispatcher("/RegisterPage.jspx").forward(request, response);

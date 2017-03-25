@@ -13,10 +13,24 @@
 <body>
 <form>
 		<legend>Registration page</legend>
-		<label>Username:</label>
-		<input type="text" name="username"></input><br/>
+		<label>Email:</label>
+		<input type="text" name="email" required="true"></input><br/>
 		<label>Password:</label>
 		<input type="password" name="password"></input><br/>
+		<label>First Name:</label>
+		<input type="text" name="fname"></input><br/>
+		<label>Last Name:</label>
+		<input type="text" name="lname"></input><br/>
+		<label>Address:</label>
+		<input type="text" name="address"></input><br/>
+		<label>Province:</label>
+		<input type="text" name="province"></input><br/>
+		<label>Country:</label>
+		<input type="text" name="country"></input><br/>
+		<label>Postal Code:</label>
+		<input type="text" name="zip"></input><br/>
+		<label>Phone:</label>
+		<input type="text" name="phone"></input><br/>
 		<input type="submit" name="register" value="Register"></input>
 	</form>
 </body>
