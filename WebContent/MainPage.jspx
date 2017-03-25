@@ -11,10 +11,11 @@
 <title>Book Store</title>
 </head>
 <body>
-	<p>Book Categories</p><button>Shopping Cart</button><br/><br/>
+	<p>Book Categories</p><br/><br/>
 	<form>
-	<input type="submit" name="login" value="Login"></input>
-	<input type="submit" name="register" value="Register"></input>
+		<input type="submit" name="login" value="Login"></input>
+		<input type="submit" name="register" value="Register"></input>
+		<input type="submit" name="shopping" value="Shopping Cart"></input>
 	</form>
 	<!-- <button>Science fiction</button>
 	<button>Satire</button>

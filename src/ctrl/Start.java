@@ -52,7 +52,8 @@ public class Start extends HttpServlet {
 
 		boolean registerPressed = "Register".equals(request.getParameter("register"));
 		boolean loginPressed = "Login".equals(request.getParameter("login"));
-
+		boolean shoppingPressed = "Shopping Cart".equals(request.getParameter("shopping"));
+		
 		if (registerPressed) {
 
 			displayRegisterPage(request, response);
@@ -61,7 +62,11 @@ public class Start extends HttpServlet {
 			
 			displayLoginPage(request, response);
 			
-		} else {
+		} else if(shoppingPressed){
+			
+			displayShoppingPage(request,response);
+			
+		}	else {
 
 			displayMainPage(request, response);
 
@@ -69,6 +74,12 @@ public class Start extends HttpServlet {
 
 		System.out.println("Username is: " + username + " Password is: " + password);
 
+	}
+
+	private void displayShoppingPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Shopping cart button pressed");
+		request.getRequestDispatcher("/ShoppingCartPage.jspx").forward(request, response);
+		
 	}
 
 	private void displayMainPage(HttpServletRequest request, HttpServletResponse response)
