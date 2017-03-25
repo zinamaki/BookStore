@@ -12,7 +12,10 @@
 </head>
 <body>
 	<p>Book Categories</p><button>Shopping Cart</button><br/><br/>
-
+	<form>
+	<input type="submit" name="login" value="Login"></input>
+	<input type="submit" name="register" value="Register"></input>
+	</form>
 	<!-- <button>Science fiction</button>
 	<button>Satire</button>
 	<button>Drama</button>

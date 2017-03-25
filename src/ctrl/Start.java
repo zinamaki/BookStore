@@ -76,7 +76,6 @@ public class Start extends HttpServlet {
 		try {
 			database = new SIS();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String[][] display = getAllBooks();
