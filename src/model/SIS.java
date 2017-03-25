@@ -57,8 +57,15 @@ public class SIS {
 		
 	}
 	
-	public boolean loginUser(String email, String password){
-		return false;
+	public boolean loginUser(String email, String password) throws SQLException{
+		
+		UserBean result = this.userDAO.loginUser(email, password);
+		
+		if(result == null){
+			return false;
+		}else{
+			return true;
+		}
 		
 	}
 

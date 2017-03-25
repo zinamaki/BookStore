@@ -67,7 +67,7 @@ public class UserDAO {
 	public UserBean loginUser(String email, String password) throws SQLException{
 		UserBean user = null;
 		
-		String query = "select * from customer where email = '" + email + "' and password = '" + password + "'"; 
+		String query = "select * from users where email = '" + email + "' and password = '" + password + "'"; 
 		
 		Connection con = this.ds.getConnection();
 		PreparedStatement p = con.prepareStatement(query);

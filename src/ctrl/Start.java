@@ -1,6 +1,7 @@
 package ctrl;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -91,11 +92,32 @@ public class Start extends HttpServlet {
 	private void displayLoginPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String username = request.getParameter("username");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		// now we check the database for a matching result
 
+		if(email == null || email.equals("") || password == null || password.equals("")){
+			// they messed up
+		}else{
+			// try to log them in
+			
+			boolean login = false;
+			
+			try {
+				login = database.loginUser(email, password);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(login){
+				System.out.println("login successful");
+			}else{
+				System.out.println("login failed");
+			}
+		}
+		
 		System.out.println("Login button pressed");
 		request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
 
