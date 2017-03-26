@@ -38,10 +38,10 @@ public class UserDAO {
 
 			user = new UserBean(fname, lname, email, password);
 			
-			// Add the address to the database connected to the uid 
-			String updateAdd = "INSERT INTO Address (email, street, province, country, zip, phone) VALUES ('" 
-					+ email + "', '" + street + "', '" + province + "', '" + country + "', '" + zip + "' ,'" + phone + "')";
-			st.executeUpdate(updateAdd);
+//			// Add the address to the database connected to the uid 
+//			String updateAdd = "INSERT INTO Address (email, street, province, country, zip, phone) VALUES ('" 
+//					+ email + "', '" + street + "', '" + province + "', '" + country + "', '" + zip + "' ,'" + phone + "')";
+//			st.executeUpdate(updateAdd);
 			st.close();
 			con.close();
 			
