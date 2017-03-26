@@ -167,13 +167,11 @@ public class Start extends HttpServlet {
 
 			for (int i = 0; i < result.size(); i++) {
 
-				String bid = result.get(Integer.toString(i)).getBid();
 				String title = result.get(Integer.toString(i)).getTitle();
 				String price = result.get(Integer.toString(i)).getPrice();
 				String category = result.get(Integer.toString(i)).getCategory();
 				String author = result.get(Integer.toString(i)).getAuthor();
 
-				output[i][0] = bid;
 				output[i][1] = title;
 				output[i][2] = price;
 				output[i][3] = category;
