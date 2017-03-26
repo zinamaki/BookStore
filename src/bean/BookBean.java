@@ -1,28 +1,19 @@
 package bean;
 
 public class BookBean {
-	private String bid;
 	private String title;
 	private String price;
 	private String category;
 	private String author;
 	
-	public BookBean(String bid, String title, String author, String price, String category) {
+	public BookBean(String title, String author, String price, String category) {
 
-		super();
-		this.bid = bid;
 		this.title = title;
 		this.author = author;
 		this.price = price;
 		this.category = category;
 	}
 	
-	public String getBid() {
-		return bid;
-	}
-	public void setBid(String bid) {
-		this.bid = bid;
-	}
 	public String getTitle() {
 		return title;
 	}

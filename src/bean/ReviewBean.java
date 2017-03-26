@@ -3,41 +3,46 @@ package bean;
 public class ReviewBean {
 
 	/*********Attributes************/
-	private String bid;
+	private String title;
+	private String author;
 	private String fullName;
 	private int rating;
 	private String review;
-	private int uid;
+	private String email;
 
 	/*********Constructor************/
-	public ReviewBean(String bid, int uid, String fullName, int rating, String review) {
-		this.bid = bid;
-		this.uid = uid;
+	public ReviewBean(String title, String author, String email, String fullName, int rating, String review) {
+		this.title = title;
+		this.author = author;
+		this.email = email;
 		this.fullName = fullName;
 		this.rating = rating;
 		this.review = review;
 	}
 	
-	public ReviewBean(String bid, int rating, String review) {
-		this.bid = bid;
-		this.rating = rating;
-		this.review = review;
-	}
-
 	/*********Methods************/
-	public String getBid() {
-		return bid;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setBid(String bid) {
-		this.bid = bid;
-	}
-	public int getUid() {
-		return uid;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public void setUid(int uid) {
-		this.uid = uid;
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	public String getFullName() {

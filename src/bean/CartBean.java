@@ -2,27 +2,16 @@ package bean;
 
 public class CartBean {
 
-	private String bid;
 	private String bookPicture;
 	private String title;
 	private int quantity;
 	private int price;
 	
-	public CartBean(String bid, String bookPicture, String title, int quantity, int price){
-		this.bid = bid;
+	public CartBean(String bookPicture, String title, int quantity, int price){
 		this.bookPicture = bookPicture;
 		this.title = title;
 		this.quantity = quantity;
 		this.price = price;
-	}
-	
-	public String getBid() {
-		return bid;
-	}
-	
-
-	public void setBid(String bid) {
-		this.bid = bid;
 	}
 
 	public String getbookPicture() {

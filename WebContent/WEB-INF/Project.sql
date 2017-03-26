@@ -28,21 +28,21 @@ INSERT INTO Category (category) VALUES ('Engineering');
 
 
 CREATE TABLE Book (
-	bid VARCHAR(20) NOT NULL,
 	title VARCHAR(60) NOT NULL,
 	author VARCHAR(20) NOT NULL,
 	price INT NOT NULL,
 	category varchar(20) NOT NULL,
-	PRIMARY KEY(bid),
+	picture varchar(200) NOT NULL,
+	PRIMARY KEY(title, author),
 	constraint book_category 
 	   foreign key (category) references Category
 );
 --#
 --# Adding data for table 'Book'
 --#
-INSERT INTO Book (bid, title, author, price, category) VALUES ('b001', 'Little Prince', 'John Johnson',  20, 'Fiction');
-INSERT INTO Book (bid, title, author, price, category) VALUES ('b002','Physics', 'Jeff Sions', 201, 'Science');
-INSERT INTO Book (bid, title, author, price, category) VALUES ('b003','Mechanics' ,'John Jims', 100,'Engineering');
+INSERT INTO Book (title, author, price, category, picture) VALUES ('Little Prince', 'John Johnson',  20, 'Fiction', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg');
+INSERT INTO Book (title, author, price, category, picture) VALUES ('Physics', 'Jeff Sions', 201, 'Science', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg');
+INSERT INTO Book (title, author, price, category, picture) VALUES ('Mechanics' ,'John Jims', 100,'Engineering', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg');
 
 
 CREATE TABLE Status (
@@ -56,14 +56,11 @@ INSERT INTO Status (status) VALUES ('PROCESSED');
 INSERT INTO Status (status) VALUES ('DENIED');
 
 CREATE TABLE Users (
-    uid INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     fname VARCHAR(20) NOT NULL,
     lname VARCHAR(20) NOT NULL,
     email VARCHAR(20) NOT NULL,
     password VARCHAR(20) NOT NULL,
-    PRIMARY KEY(uid),
-    constraint uid_pos
-       check (uid > 0)
+    PRIMARY KEY(email)
 );
 
 INSERT INTO Users (fname, lname, email, password) VALUES ('John', 'White', 'john@gmail.com', 'hello123');
@@ -76,25 +73,23 @@ INSERT INTO Users (fname, lname, email, password) VALUES ('Andy', 'Green', 'andy
 */
 CREATE TABLE Address (
     id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-    uid INT NOT NULL,
+    email VARCHAR(20) NOT NULL,
     street VARCHAR(100) NOT NULL,
     province VARCHAR(20) NOT NULL,
     country VARCHAR(20) NOT NULL,
     zip VARCHAR(20) NOT NULL,
     phone VARCHAR(20),
     PRIMARY KEY(id),
-    FOREIGN KEY(uid) REFERENCES Users(uid) ON DELETE CASCADE,
+    FOREIGN KEY(email) REFERENCES Users(email) ON DELETE CASCADE,
     constraint id_pos
-       check (id > 0),
-    constraint uid_pos_p
        check (id > 0)
 );
 --#
 --# Inserting data for table 'address'
 --#
-INSERT INTO Address (uid, street, province, country, zip, phone) VALUES (1, '123 Yonge St', 'ON', 'Canada', 'K1E 6T5' ,'647-123-4567');
-INSERT INTO Address (uid, street, province, country, zip, phone) VALUES (2, '445 Avenue rd', 'ON', 'Canada', 'M1C 6K5' ,'416-123-8569');
-INSERT INTO Address (uid, street, province, country, zip, phone) VALUES (3, '789 Keele St.', 'ON', 'Canada', 'K3C 9T5' ,'416-123-9568');
+INSERT INTO Address (email, street, province, country, zip, phone) VALUES ('john@gmail.com', '123 Yonge St', 'ON', 'Canada', 'K1E 6T5' ,'647-123-4567');
+INSERT INTO Address (email, street, province, country, zip, phone) VALUES ('peter@gmail.com', '445 Avenue rd', 'ON', 'Canada', 'M1C 6K5' ,'416-123-8569');
+INSERT INTO Address (email, street, province, country, zip, phone) VALUES ('andy@gmail.com', '789 Keele St.', 'ON', 'Canada', 'K3C 9T5' ,'416-123-9568');
 
 
 --#
@@ -107,28 +102,26 @@ INSERT INTO Address (uid, street, province, country, zip, phone) VALUES (3, '789
 */
 CREATE TABLE PO (
 	id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-	uid INT NOT NULL,
+    email VARCHAR(20) NOT NULL,
 	status VARCHAR(20) NOT NULL,
 	address INT NOT NULL,
 	PRIMARY KEY(id),
 --	INDEX (address),
 	FOREIGN KEY (address) REFERENCES Address (id) ON DELETE CASCADE,
-	FOREIGN KEY (uid) REFERENCES Users (uid) ON DELETE CASCADE,
+	FOREIGN KEY (email) REFERENCES Users (email) ON DELETE CASCADE,
 	constraint po_id_pos
        check (id > 0),
     constraint stat 
        foreign key (status) references Status,
     constraint add_pos
-       check (address > 0),
-    constraint uid_pos_po
-       check (uid > 0)
+       check (address > 0)
 );
 --#
 --# Inserting data for table 'PO'
 --#
-INSERT INTO PO (uid, status, address) VALUES (1, 'PROCESSED', 1);
-INSERT INTO PO (uid, status, address) VALUES (2, 'DENIED', 2);
-INSERT INTO PO (uid, status, address) VALUES (3, 'ORDERED', 3);
+INSERT INTO PO (email, status, address) VALUES ('john@gmail.com', 'PROCESSED', 1);
+INSERT INTO PO (email, status, address) VALUES ('peter@gmail.com', 'DENIED', 2);
+INSERT INTO PO (email, status, address) VALUES ('andy@gmail.com', 'ORDERED', 3);
 
 /* Items on order
 * id : purchase order id
@@ -137,13 +130,14 @@ INSERT INTO PO (uid, status, address) VALUES (3, 'ORDERED', 3);
 */
 CREATE TABLE POItem (
 	id INT NOT NULL,
-	bid VARCHAR(20) NOT NULL,
+	title VARCHAR(60) NOT NULL,
+    author VARCHAR(20) NOT NULL,
 	price INT NOT NULL,
-	PRIMARY KEY(id,bid),
+	PRIMARY KEY(id, title, author),
 --	INDEX (id),
 	FOREIGN KEY(id) REFERENCES PO(id) ON DELETE CASCADE,
 --	INDEX (bid),
-	FOREIGN KEY(bid) REFERENCES Book(bid) ON DELETE CASCADE,
+	FOREIGN KEY(title, author) REFERENCES Book(title, author) ON DELETE CASCADE,
 	constraint poit_id_pos
        check (id > 0),
     constraint price_pos
@@ -152,9 +146,9 @@ CREATE TABLE POItem (
 --#
 --# Inserting data for table 'POitem'
 --#
-INSERT INTO POItem (id, bid, price) VALUES (1, 'b001', 20);
-INSERT INTO POItem (id, bid, price) VALUES (2, 'b002', 201);
-INSERT INTO POItem (id, bid, price) VALUES (3, 'b003', 100);
+INSERT INTO POItem (id, title, author, price) VALUES (1, 'Little Prince', 'John Johnson', 20);
+INSERT INTO POItem (id, title, author, price) VALUES (2, 'Little Prince', 'John Johnson', 201);
+INSERT INTO POItem (id, title, author, price) VALUES (3, 'Little Prince', 'John Johnson', 100);
 
 CREATE TABLE EventType (
     eventtype varchar(20) not null,
@@ -174,33 +168,34 @@ INSERT INTO EventType (eventtype) VALUES ('PURCHASE');
 */
 CREATE TABLE VisitEvent (
 	day varchar(8) NOT NULL,
-	bid varchar(20) not null,
+	title VARCHAR(60) NOT NULL,
+    author VARCHAR(20) NOT NULL,
 	eventtype varchar(20) NOT NULL,
-	FOREIGN KEY(bid) REFERENCES Book(bid),
+	PRIMARY KEY(day, title, author, eventtype),
+	FOREIGN KEY(title, author) REFERENCES Book(title, author),
     foreign key (eventtype) references EventType(eventtype)
 );
 --#
 --# Dumping data for table 'VisitEvent'
 --#
-INSERT INTO VisitEvent (day, bid, eventtype) VALUES ('12202015', 'b001', 'VIEW');
-INSERT INTO VisitEvent (day, bid, eventtype) VALUES ('12242015', 'b001', 'CART');
-INSERT INTO VisitEvent (day, bid, eventtype) VALUES ('12252015', 'b001', 'PURCHASE');
+INSERT INTO VisitEvent (day, title, author, eventtype) VALUES ('12202015', 'Little Prince', 'John Johnson', 'VIEW');
+INSERT INTO VisitEvent (day, title, author, eventtype) VALUES ('12242015', 'Little Prince', 'John Johnson', 'CART');
+INSERT INTO VisitEvent (day, title, author, eventtype) VALUES ('12252015', 'Little Prince', 'John Johnson', 'PURCHASE');
 
 
 CREATE TABLE Review (
-    bid varchar(20) NOT NULL,
-    uid INT NOT NULL,
+    title VARCHAR(60) NOT NULL,
+    author VARCHAR(20) NOT NULL,
+    email VARCHAR(20) NOT NULL,
     rating int NOT NULL,
     review varchar(100) NOT NULL,
-    PRIMARY KEY(bid, uid),
-    FOREIGN KEY(bid) REFERENCES Book(bid) ON DELETE CASCADE,
-    FOREIGN KEY(uid) REFERENCES Users(uid) ON DELETE CASCADE,
-    constraint poit_uid_pos
-       check (uid > 0),
+    PRIMARY KEY(title, author, email),
+    FOREIGN KEY(title, author) REFERENCES Book(title, author) ON DELETE CASCADE,
+    FOREIGN KEY(email) REFERENCES Users(email) ON DELETE CASCADE,
     constraint star_rating
        check (rating >= 1 and rating <= 5)
 );
 
-INSERT INTO Review (bid, uid, rating, review) VALUES ('b001', 1, 4, 'I love this book');
-INSERT INTO Review (bid, uid, rating, review) VALUES ('b002', 2, 3, 'I like this book');
-INSERT INTO Review (bid, uid, rating, review) VALUES ('b003', 3, 1, 'I hate this book');
+INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'john@gmail.com', 4, 'I love this book');
+INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'peter@gmail.com', 3, 'I like this book');
+INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'andy@gmail.com', 1, 'I hate this book');

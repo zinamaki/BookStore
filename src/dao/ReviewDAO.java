@@ -36,9 +36,11 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 		int counter = 0;
 		while(r.next()){
 				
-			String bid = r.getString("bid");
-			int uid = r.getInt("uid");
-			String query2 = "select fName, lname from Users where uid = " + uid;
+			String title = r.getString("title");
+			String author = r.getString("author");
+			String email = r.getString("email");
+
+			String query2 = "select fName, lname from Users where email = " + email;
 			PreparedStatement p2 = con.prepareStatement(query2);
 			ResultSet r2 = p2.executeQuery();
 			r2.next();
@@ -46,7 +48,7 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 			int rating = r.getInt("rating");
 			String review = r.getString("review");
 			
-			ReviewBean reviewBean = new ReviewBean(bid, uid, fullName, rating, review);
+			ReviewBean reviewBean = new ReviewBean(title, author, email, fullName, rating, review);
 			
 			rv.put(Integer.toString(counter), reviewBean);
 			counter ++;
@@ -62,14 +64,8 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 		
 	}
 	
-	public Map<String, ReviewBean> retrieveFromBid(String bid) throws SQLException{
-		String query = "select * from review where bid =" + bid;
-		return runQuery(query);
-		
-	}
-	
-	public Map<String, ReviewBean> retrieveByUser(int uid) throws SQLException{
-		String query = "select * from review where uid =" + uid;
+	public Map<String, ReviewBean> retrieveByUser(String email) throws SQLException{
+		String query = "select * from review where email =" + email;
 		return runQuery(query);
 		
 	}
@@ -80,7 +76,7 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 		
 	}
 	
-	public Map<String, ReviewBean> retrieveAllBooks() throws SQLException{
+	public Map<String, ReviewBean> retrieveAllReviews() throws SQLException{
 		String query = "select * from review";
 		return runQuery(query);
 		
@@ -92,12 +88,12 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 		
 	}
 	
-	public void addReview(String bid, int uid, int rating, String review){
+	public void addReview(String title, String author, String email, int rating, String review){
 		try{
 			Connection con = this.ds.getConnection();
 			Statement st = con.createStatement();
-			String update = "INSERT INTO Review (bid, uid, rating, review) VALUES ('" 
-					+ bid + "', " + uid + ", " + rating + ", '" + review + "')";
+			String update = "INSERT INTO Review (title, author, email, rating, review) VALUES ('" 
+					+ title + "', " + author + ", " + email + ", " + rating + ", '" + review + "')";
 			st.executeUpdate(update);
 			st.close();
 			con.close();
