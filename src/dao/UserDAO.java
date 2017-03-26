@@ -35,12 +35,12 @@ public class UserDAO {
 			String updateUser = "INSERT INTO Users (fname, lname, email, password) VALUES ('" 
 					+ fname + "', '" + lname + "', '" + email + "', '" + password + "')";
 			st.executeUpdate(updateUser);
-			
+
 			user = new UserBean(fname, lname, email, password);
 			
 			// Add the address to the database connected to the uid 
-			String updateAdd = "INSERT INTO Address (email, street, province, country, zip, phone) VALUES (" 
-					+ email + ", '" + street + "', '" + province + "', '" + country + "', '" + zip + "' ,'" + phone + "')";
+			String updateAdd = "INSERT INTO Address (email, street, province, country, zip, phone) VALUES ('" 
+					+ email + "', '" + street + "', '" + province + "', '" + country + "', '" + zip + "' ,'" + phone + "')";
 			st.executeUpdate(updateAdd);
 			st.close();
 			con.close();
