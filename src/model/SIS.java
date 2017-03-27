@@ -68,6 +68,15 @@ public class SIS {
 		}
 		
 	}
+	
+	public Map<String,BookBean> retrieveAllResults(String search){
+		try {
+			return bookDAO.retrieveBySearch(search);
+		} catch (SQLException e) {
+			return null;
+		}
+	}
+	
 
 	
 }

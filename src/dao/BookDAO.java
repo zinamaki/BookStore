@@ -80,7 +80,7 @@ public class BookDAO {
 	
 	public Map<String, BookBean> retrieveBySearch(String param) throws SQLException{
 
-		String query = "select * from book where title like '%" + param + "%' or author like '%" + param + " %'";
+		String query = "select * from book where title like '%" + param + "%' union select * from book where author like '%" + param + " %'";
 		return runQuery(query);
 		
 	}
@@ -96,6 +96,5 @@ public class BookDAO {
 		return runQuery(query);
 		
 	}
-	
 	
 }

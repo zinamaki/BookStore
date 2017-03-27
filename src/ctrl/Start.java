@@ -100,7 +100,7 @@ public class Start extends HttpServlet {
 			String search = request.getParameter("search");
 			
 			if(search != null){
-				displaySearchPage(request,response);
+				displaySearchPage(search,request,response);
 			}else{
 				displayMainPage(request,response);
 			}
@@ -118,11 +118,42 @@ public class Start extends HttpServlet {
 
 	}
 
-	private void displaySearchPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void displaySearchPage(String search, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		String[][] display = getAllResults(search);
+		request.setAttribute("messageList", display);
 		request.getRequestDispatcher("/SearchPage.jspx").forward(request, response);
 		
+	}
+
+	private String[][] getAllResults(String search) {
+		// TODO Auto-generated method stub
+		try {
+
+			Map<String, BookBean> result = this.database.retrieveAllResults(search);
+
+			System.out.println(result.size());
+
+			String[][] output = new String[result.size()][5];
+
+			for (int i = 0; i < result.size(); i++) {
+
+				String title = result.get(Integer.toString(i)).getTitle();
+				String price = result.get(Integer.toString(i)).getPrice();
+				String category = result.get(Integer.toString(i)).getCategory();
+				String author = result.get(Integer.toString(i)).getAuthor();
+
+				output[i][1] = title;
+				output[i][2] = price;
+				output[i][3] = category;
+				output[i][4] = author;
+
+			}
+			return output;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	private void logout() {
@@ -150,7 +181,7 @@ public class Start extends HttpServlet {
 	}
 
 	private void incrementItemsInCart() {
-		// TODO Auto-generated method stub
+		
 		this.itemsInCart++;
 	}
 
