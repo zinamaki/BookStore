@@ -21,7 +21,7 @@ public class Start extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	SIS database;
-
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -52,6 +52,8 @@ public class Start extends HttpServlet {
 		boolean loginPressed = "Login".equals(request.getParameter("login"));
 		boolean shoppingPressed = "Shopping Cart".equals(request.getParameter("shopping"));
 
+		String bookPressed = request.getParameter("book");
+	
 		if (registerPressed) {
 
 			displayRegisterPage(request, response);
@@ -64,11 +66,24 @@ public class Start extends HttpServlet {
 
 			displayShoppingPage(request, response);
 
-		} else {
+		} else if(bookPressed != null){
+			displayBookPage(request,response);
+		}else {
 
 			displayMainPage(request, response);
 
 		}
+
+	}
+
+	private void displayBookPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Book button pressed");
+				
+		// now we should get the name of the book, the name of the author and display it in jspx
+		String title = request.getParameter("book");
+		
+		request.setAttribute("title", title);
+		request.getRequestDispatcher("/BookPage.jspx").forward(request, response);
 
 	}
 

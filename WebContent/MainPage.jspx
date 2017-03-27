@@ -68,11 +68,10 @@
 		</table> -->
 			
 			<c:forEach var="msg" items="${requestScope.messageList}">
-                <button>
-                    ${msg[1]} by ${msg[4]} -  
-                    ${msg[3]} - $${msg[2]}
-                </button>
-                <button>Add to Cart</button>
+			<form>
+				<input type="submit" name="book" value="${msg[1]} by ${msg[4]} - ${msg[3]} - $${msg[2]}"></input>
+				<input type="submit" name="cart" value="Add to Cart"></input>
+			</form>
                 <br/>
             </c:forEach>    	
 

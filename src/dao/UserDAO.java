@@ -38,7 +38,6 @@ public class UserDAO {
 
 		while (r.next()) {
 			count = r.getInt("count");
-
 		}
 
 		if (count == 0) {
