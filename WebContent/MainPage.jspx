@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"  version="2.0">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
 	<jsp:output doctype-root-element="html"
@@ -11,11 +12,18 @@
 <title>Book Store</title>
 </head>
 <body>
-	<p>Book Categories</p><br/><br/>
+	<p>Book Categories</p>
+	<br />
+	<br />
 	<form>
-		<input type="submit" name="login" value="Login"></input>
-		<input type="submit" name="register" value="Register"></input>
-		<button type="submit" name="shopping" value="Shopping Cart">Shopping Cart(${requestScope.size})</button>
+		<c:choose>
+			<c:when test="${loggedIn}"><input type="submit" name="logout" value="Logout"></input></c:when>		
+			<c:otherwise><input type="submit" name="login" value="Login"></input></c:otherwise>
+		</c:choose>
+		 <input
+			type="submit" name="register" value="Register"></input>
+		<button type="submit" name="shopping" value="Shopping Cart">Shopping
+			Cart(${requestScope.size})</button>
 
 	</form>
 	<!-- <button>Science fiction</button>
@@ -67,16 +75,19 @@
                 <br/>
             </c:forEach>    	
 		</table> -->
-			<br />
-			<c:forEach var="msg" items="${requestScope.messageList}">
-			<form>
-				<input type="submit" name="book" value="${msg[1]} by ${msg[4]} - ${msg[3]} - $${msg[2]}"></input>
-				<button type="submit" name="cart" value="${msg[1]} by ${msg[4]} - ${msg[3]} - $${msg[2]}">Add to Cart</button>
-			</form>
-                
-            </c:forEach>    	
+	<br />
+	<c:forEach var="msg" items="${requestScope.messageList}">
+		<form>
+			<input type="submit" name="book"
+				value="${msg[1]} by ${msg[4]} - ${msg[3]} - $${msg[2]}"></input>
+			<button type="submit" name="cart"
+				value="${msg[1]} by ${msg[4]} - ${msg[3]} - $${msg[2]}">Add
+				to Cart</button>
+		</form>
 
-	
+	</c:forEach>
+
+
 
 </body>
 	</html>

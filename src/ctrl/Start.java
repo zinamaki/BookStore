@@ -24,6 +24,8 @@ public class Start extends HttpServlet {
 	SIS database;
 	int itemsInCart;
 	ArrayList<String> cart;
+	boolean loggedIn;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -38,6 +40,7 @@ public class Start extends HttpServlet {
 			this.database = new SIS();
 			this.cart = new ArrayList<String>();
 			this.itemsInCart = 0;
+			this.loggedIn = false;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,6 +59,8 @@ public class Start extends HttpServlet {
 		boolean loginPressed = "Login".equals(request.getParameter("login"));
 		boolean shoppingPressed = "Shopping Cart".equals(request.getParameter("shopping"));
 
+		boolean logoutPressed = "Logout".equals(request.getParameter("logout"));
+		
 		String bookPressed = request.getParameter("book");
 		String cartPressed = request.getParameter("cart");
 
@@ -67,16 +72,25 @@ public class Start extends HttpServlet {
 
 			displayLoginPage(request, response);
 
+		} else if(logoutPressed){
+			
+			logout();
+			displayMainPage(request,response);			
+			
 		} else if (shoppingPressed) {
-			request.setAttribute("cartItems", cart);
+			
 			displayShoppingPage(request, response);
 
 		} else if (bookPressed != null) {
+			
 			displayBookPage(request, response);
+			
 		} else if (cartPressed != null) {
+			
 			incrementItemsInCart();
 			addItemToCart(request);
 			displayMainPage(request, response);
+			
 		} else {
 
 			displayMainPage(request, response);
@@ -85,15 +99,27 @@ public class Start extends HttpServlet {
 
 	}
 
+	private void logout() {
+		
+		this.loggedIn = false;
+	}
+	
+	private void login() {
+		
+		this.loggedIn = true;
+	}
+
 	private void addItemToCart(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		
+
 		// now we add the thing in cart= to the shopping cart page
-		
+
 		String book = request.getParameter("cart");
-		
-		 cart.add(book); 
-		 request.setAttribute("cartItems", cart);
+
+		// if the item is already in the cart, then you need to increment the
+		// quantity instead of adding it again
+
+		cart.add(book);
 		
 	}
 
@@ -118,6 +144,7 @@ public class Start extends HttpServlet {
 	private void displayShoppingPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Shopping cart button pressed");
+		request.setAttribute("cartItems", cart);
 		request.getRequestDispatcher("/ShoppingCartPage.jspx").forward(request, response);
 
 	}
@@ -129,6 +156,7 @@ public class Start extends HttpServlet {
 
 		request.setAttribute("messageList", display);
 		request.setAttribute("size", this.itemsInCart);
+		request.setAttribute("loggedIn", this.loggedIn);
 		request.getRequestDispatcher("/MainPage.jspx").forward(request, response);
 
 	}
@@ -157,6 +185,10 @@ public class Start extends HttpServlet {
 
 			if (login) {
 				System.out.println("login successful");
+				// now take them to the main page
+				login();
+				displayMainPage(request,response);
+				return;
 			} else {
 				System.out.println("login failed");
 			}
