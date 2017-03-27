@@ -61,9 +61,13 @@ public class Start extends HttpServlet {
 
 		boolean logoutPressed = "Logout".equals(request.getParameter("logout"));
 		
+		boolean searchPressed = "Search".equals(request.getParameter("searchButton"));
+		
 		String bookPressed = request.getParameter("book");
 		String cartPressed = request.getParameter("cart");
-
+		
+		
+		
 		if (registerPressed) {
 
 			displayRegisterPage(request, response);
@@ -91,12 +95,34 @@ public class Start extends HttpServlet {
 			addItemToCart(request);
 			displayMainPage(request, response);
 			
-		} else {
+		} else if(searchPressed){
+			
+			String search = request.getParameter("search");
+			
+			if(search != null){
+				displaySearchPage(request,response);
+			}else{
+				displayMainPage(request,response);
+			}
+			
+			
+			
+		}
+		
+		
+		else {
 
 			displayMainPage(request, response);
 
 		}
 
+	}
+
+	private void displaySearchPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		request.getRequestDispatcher("/SearchPage.jspx").forward(request, response);
+		
 	}
 
 	private void logout() {
