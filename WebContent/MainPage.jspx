@@ -20,10 +20,14 @@
 			<c:when test="${loggedIn}"><input type="submit" name="logout" value="Logout"></input></c:when>		
 			<c:otherwise><input type="submit" name="login" value="Login"></input></c:otherwise>
 		</c:choose>
-		 <input
-			type="submit" name="register" value="Register"></input>
+		 <input type="submit" name="register" value="Register"></input>
+		 
 		<button type="submit" name="shopping" value="Shopping Cart">Shopping
 			Cart(${requestScope.size})</button>
+			<br/>
+			<br/>
+			<input type="text" name="search"></input>
+		 <input type="submit" name="searchButton" value="Search"></input>
 
 	</form>
 	<!-- <button>Science fiction</button>
