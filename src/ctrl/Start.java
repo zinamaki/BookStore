@@ -97,27 +97,27 @@ public class Start extends HttpServlet {
 
 		// now we check the database for a matching result
 
-		if(email == null || email.equals("") || password == null || password.equals("")){
+		if (email == null || email.equals("") || password == null || password.equals("")) {
 			// they messed up
-		}else{
+		} else {
 			// try to log them in
-			
+
 			boolean login = false;
-			
+
 			try {
 				login = database.loginUser(email, password);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			if(login){
+
+			if (login) {
 				System.out.println("login successful");
-			}else{
+			} else {
 				System.out.println("login failed");
 			}
 		}
-		
+
 		System.out.println("Login button pressed");
 		request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
 
@@ -142,6 +142,7 @@ public class Start extends HttpServlet {
 					&& !address.equals("") && !province.equals("") && !country.equals("") && !zip.equals("")
 					&& !phone.equals("")) {
 				database.addNewUser(email, password, fname, lname, address, province, country, zip, phone);
+
 			} else {
 				System.out.println("you must input all fields");
 			}

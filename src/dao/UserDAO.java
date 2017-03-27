@@ -14,7 +14,7 @@ import bean.UserBean;
 
 public class UserDAO {
 	DataSource ds;
-	
+
 	public UserDAO() throws ClassNotFoundException {
 
 		try {
@@ -23,57 +23,89 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	public UserBean addNewUser(String email, String password, String fname, 
-				String lname, String street, String province, String country, String zip, String phone){
+
+	private boolean checkUserExists(String email) throws SQLException {
+
+		boolean exists = false;
+
+		String checkUserExists = "select count(*) as count from users where email='" + email + "'";
+
+		Connection con = this.ds.getConnection();
+		PreparedStatement p = con.prepareStatement(checkUserExists);
+		ResultSet r = p.executeQuery();
+
+		int count = 0;
+
+		while (r.next()) {
+			count = r.getInt("count");
+
+		}
+
+		if (count == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public UserBean addNewUser(String email, String password, String fname, String lname, String street,
+			String province, String country, String zip, String phone) {
 		UserBean user = null;
-		try{
+		try {
 			Connection con = this.ds.getConnection();
 			Statement st = con.createStatement();
-			
+
+			// before adding the user, check to see if the user already exists
+
+			if (checkUserExists(email)) {
+				System.out.println("user already exists");
+				return null;
+			}
+
 			// Insert a new user into the Users table
-			String updateUser = "INSERT INTO Users (fname, lname, email, password) VALUES ('" 
-					+ fname + "', '" + lname + "', '" + email + "', '" + password + "')";
+			String updateUser = "INSERT INTO Users (fname, lname, email, password) VALUES ('" + fname + "', '" + lname
+					+ "', '" + email + "', '" + password + "')";
 			st.executeUpdate(updateUser);
 			st.close();
+
 			user = new UserBean(fname, lname, email, password);
-			
-			Statement st1= con.createStatement();
-			
-			// Add the address to the database connected to the uid 
-			String updateAdd = "INSERT INTO Address (email, street, province, country, zip, phone) VALUES ('" 
-					+ email + "', '" + street + "', '" + province + "', '" + country + "', '" + zip + "' ,'" + phone + "')";
+
+			Statement st1 = con.createStatement();
+
+			// Add the address to the database connected to the uid
+			String updateAdd = "INSERT INTO Address (email, street, province, country, zip, phone) VALUES ('" + email
+					+ "', '" + street + "', '" + province + "', '" + country + "', '" + zip + "' ,'" + phone + "')";
 			st1.executeUpdate(updateAdd);
 			st1.close();
 			con.close();
-			
-		}catch (Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return user;
 	}
-	
-	public UserBean loginUser(String email, String password) throws SQLException{
+
+	public UserBean loginUser(String email, String password) throws SQLException {
 		UserBean user = null;
-		
-		String query = "select * from users where email = '" + email + "' and password = '" + password + "'"; 
-		
+
+		String query = "select * from users where email = '" + email + "' and password = '" + password + "'";
+
 		Connection con = this.ds.getConnection();
 		PreparedStatement p = con.prepareStatement(query);
 		ResultSet r = p.executeQuery();
-		
-		while (r.next()){
+
+		while (r.next()) {
 			String fname = r.getString("fname");
 			String lname = r.getString("lname");
-			
+
 			user = new UserBean(fname, lname, email, password);
 		}
-		
+
 		r.close();
 		p.close();
 		con.close();
-		
+
 		return user;
 	}
-	
+
 }
