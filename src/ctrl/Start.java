@@ -141,14 +141,13 @@ public class Start extends HttpServlet {
 			if (!email.equals("") && !password.equals("") && !fname.equals("") && !lname.equals("")
 					&& !address.equals("") && !province.equals("") && !country.equals("") && !zip.equals("")
 					&& !phone.equals("")) {
+
 				database.addNewUser(email, password, fname, lname, address, province, country, zip, phone);
 
 			} else {
 				System.out.println("you must input all fields");
 			}
 
-		} else {
-			// dont do anything
 		}
 
 		System.out.println("Registration button pressed");

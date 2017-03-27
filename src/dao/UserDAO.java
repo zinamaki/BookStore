@@ -58,6 +58,8 @@ public class UserDAO {
 			// before adding the user, check to see if the user already exists
 
 			if (checkUserExists(email)) {
+				// if the user already exists, then do not add them to the database
+				
 				System.out.println("user already exists");
 				return null;
 			}
