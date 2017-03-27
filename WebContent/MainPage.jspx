@@ -15,7 +15,8 @@
 	<form>
 		<input type="submit" name="login" value="Login"></input>
 		<input type="submit" name="register" value="Register"></input>
-		<input type="submit" name="shopping" value="Shopping Cart"></input>
+		<button type="submit" name="shopping" value="Shopping Cart">Shopping Cart(${requestScope.size})</button>
+
 	</form>
 	<!-- <button>Science fiction</button>
 	<button>Satire</button>

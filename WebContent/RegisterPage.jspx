@@ -12,7 +12,7 @@
 </head>
 <body>
 	<form>
-		<legend>Registration page</legend>
+		<legend>Registration page</legend><br/>
 		<label>Email:</label> <input type="text" name="email" required="true"></input><br />
 		<label>Password:</label> <input type="password" name="password"></input><br />
 		<label>First Name:</label> <input type="text" name="fname"></input><br />
@@ -277,8 +277,8 @@
 			<option value="Zambia">Zambia</option>
 			<option value="Zimbabwe">Zimbabwe</option>
 		</select><br /> <label>Postal Code:</label> <input type="text" name="zip"></input><br />
-		<label>Phone:</label> <input type="text" name="phone"></input><br /> <input
-			type="submit" name="register" value="Register"></input>
+		<label>Phone:</label> <input type="number" name="phone" min="0000000000" max="9999999999"></input><br /> 
+		<br/><input type="submit" name="register" value="Register"></input>
 	</form>
 </body>
 	</html>

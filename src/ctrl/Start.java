@@ -2,6 +2,7 @@ package ctrl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,8 @@ public class Start extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	SIS database;
-
+	int itemsInCart;
+	ArrayList<String> cart;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -33,7 +35,9 @@ public class Start extends HttpServlet {
 	public void init() {
 
 		try {
-			database = new SIS();
+			this.database = new SIS();
+			this.cart = new ArrayList<String>();
+			this.itemsInCart = 0;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,14 +68,15 @@ public class Start extends HttpServlet {
 			displayLoginPage(request, response);
 
 		} else if (shoppingPressed) {
-
+			request.setAttribute("cartItems", cart);
 			displayShoppingPage(request, response);
 
 		} else if (bookPressed != null) {
 			displayBookPage(request, response);
 		} else if (cartPressed != null) {
-			System.out.println("Clicked add to cart");
 			incrementItemsInCart();
+			addItemToCart(request);
+			displayMainPage(request, response);
 		} else {
 
 			displayMainPage(request, response);
@@ -80,9 +85,21 @@ public class Start extends HttpServlet {
 
 	}
 
-	private void incrementItemsInCart() {
+	private void addItemToCart(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		
+		// now we add the thing in cart= to the shopping cart page
+		
+		String book = request.getParameter("cart");
+		
+		 cart.add(book); 
+		 request.setAttribute("cartItems", cart);
+		
+	}
+
+	private void incrementItemsInCart() {
+		// TODO Auto-generated method stub
+		this.itemsInCart++;
 	}
 
 	private void displayBookPage(HttpServletRequest request, HttpServletResponse response)
@@ -111,6 +128,7 @@ public class Start extends HttpServlet {
 		String[][] display = getAllBooks();
 
 		request.setAttribute("messageList", display);
+		request.setAttribute("size", this.itemsInCart);
 		request.getRequestDispatcher("/MainPage.jspx").forward(request, response);
 
 	}
