@@ -66,13 +66,13 @@
                 <br/>
             </c:forEach>    	
 		</table> -->
-			
+			<br />
 			<c:forEach var="msg" items="${requestScope.messageList}">
 			<form>
 				<input type="submit" name="book" value="${msg[1]} by ${msg[4]} - ${msg[3]} - $${msg[2]}"></input>
-				<input type="submit" name="cart" value="Add to Cart"></input>
+				<button type="submit" name="cart" value="${msg[1]} by ${msg[4]} - ${msg[3]} - $${msg[2]}">Add to Cart</button>
 			</form>
-                <br/>
+                
             </c:forEach>    	
 
 	
