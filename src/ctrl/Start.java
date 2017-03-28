@@ -3,6 +3,7 @@ package ctrl;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class Start extends HttpServlet {
 	int itemsInCart;
 	ArrayList<String> cart;
 	boolean loggedIn;
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -60,14 +61,12 @@ public class Start extends HttpServlet {
 		boolean shoppingPressed = "Shopping Cart".equals(request.getParameter("shopping"));
 
 		boolean logoutPressed = "Logout".equals(request.getParameter("logout"));
-		
+
 		boolean searchPressed = "Search".equals(request.getParameter("searchButton"));
-		
+
 		String bookPressed = request.getParameter("book");
 		String cartPressed = request.getParameter("cart");
-		
-		
-		
+
 		if (registerPressed) {
 
 			displayRegisterPage(request, response);
@@ -76,40 +75,37 @@ public class Start extends HttpServlet {
 
 			displayLoginPage(request, response);
 
-		} else if(logoutPressed){
-			
+		} else if (logoutPressed) {
+
 			logout();
-			displayMainPage(request,response);			
-			
+			displayMainPage(request, response);
+
 		} else if (shoppingPressed) {
-			
+
 			displayShoppingPage(request, response);
 
 		} else if (bookPressed != null) {
-			
+
 			displayBookPage(request, response);
-			
+
 		} else if (cartPressed != null) {
-			
+
 			incrementItemsInCart();
 			addItemToCart(request);
 			displayMainPage(request, response);
-			
-		} else if(searchPressed){
-			
+
+		} else if (searchPressed) {
+
 			String search = request.getParameter("search");
-			
-			if(search != null){
-				displaySearchPage(search,request,response);
-			}else{
-				displayMainPage(request,response);
+
+			if (search != null) {
+				displaySearchPage(search, request, response);
+			} else {
+				displayMainPage(request, response);
 			}
-			
-			
-			
+
 		}
-		
-		
+
 		else {
 
 			displayMainPage(request, response);
@@ -118,13 +114,13 @@ public class Start extends HttpServlet {
 
 	}
 
-	private void displaySearchPage(String search, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+	private void displaySearchPage(String search, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String[][] display = getAllResults(search);
 		request.setAttribute("messageList", display);
 		request.getRequestDispatcher("/SearchPage.jspx").forward(request, response);
-		
+
 	}
 
 	private String[][] getAllResults(String search) {
@@ -157,12 +153,12 @@ public class Start extends HttpServlet {
 	}
 
 	private void logout() {
-		
+
 		this.loggedIn = false;
 	}
-	
+
 	private void login() {
-		
+
 		this.loggedIn = true;
 	}
 
@@ -177,11 +173,11 @@ public class Start extends HttpServlet {
 		// quantity instead of adding it again
 
 		cart.add(book);
-		
+
 	}
 
 	private void incrementItemsInCart() {
-		
+
 		this.itemsInCart++;
 	}
 
@@ -201,7 +197,30 @@ public class Start extends HttpServlet {
 	private void displayShoppingPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Shopping cart button pressed");
-		request.setAttribute("cartItems", cart);
+		
+		ArrayList<Integer> quantities = new ArrayList<Integer>();
+		
+		ArrayList<String> visited = new ArrayList<String>();
+		
+
+		for(String item : cart){
+			
+			if(!visited.contains(item)){
+				visited.add(item);
+				quantities.add(1);
+			}else{
+				// increment its quantity in visited
+				// already been visited, increment its quantity
+				
+				int index = visited.indexOf(item);
+				quantities.set(index, quantities.get(index) + 1);
+			}
+					
+		}
+		
+		
+		request.setAttribute("cartItems", visited);
+		request.setAttribute("quantities", quantities);
 		request.getRequestDispatcher("/ShoppingCartPage.jspx").forward(request, response);
 
 	}
@@ -244,7 +263,7 @@ public class Start extends HttpServlet {
 				System.out.println("login successful");
 				// now take them to the main page
 				login();
-				displayMainPage(request,response);
+				displayMainPage(request, response);
 				return;
 			} else {
 				System.out.println("login failed");

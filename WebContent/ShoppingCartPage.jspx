@@ -13,8 +13,11 @@
 <body>
 	<p>Shopping Cart</p>
 
-	<c:forEach var="msg" items="${requestScope.cartItems}">
-			<h5>${msg}</h5>
+	<c:forEach var="msg" items="${requestScope.cartItems}" varStatus="status">
+			${msg} ${requestScope.quantities[status.index]}
+			<button>Delete</button>
+			<input type="text">Quantity</input> 
+			<br/>
 	</c:forEach>
 </body>
 	</html>
