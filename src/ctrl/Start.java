@@ -27,6 +27,8 @@ public class Start extends HttpServlet {
 	ArrayList<String> cart;
 	boolean loggedIn;
 
+	double totalPrice;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -169,10 +171,14 @@ public class Start extends HttpServlet {
 
 		String book = request.getParameter("cart");
 
-		// if the item is already in the cart, then you need to increment the
-		// quantity instead of adding it again
-
 		cart.add(book);
+		
+		// now we increase the total price
+
+		int dollar = book.indexOf("$");
+		
+		String price = book.substring(dollar+1, book.length());
+		this.totalPrice += Double.parseDouble(price);
 
 	}
 
@@ -197,30 +203,31 @@ public class Start extends HttpServlet {
 	private void displayShoppingPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Shopping cart button pressed");
-		
-		ArrayList<Integer> quantities = new ArrayList<Integer>();
-		
-		ArrayList<String> visited = new ArrayList<String>();
-		
 
-		for(String item : cart){
-			
-			if(!visited.contains(item)){
+		ArrayList<Integer> quantities = new ArrayList<Integer>();
+
+		ArrayList<String> visited = new ArrayList<String>();
+
+		for (String item : cart) {
+
+			if (!visited.contains(item)) {
+				// item has not yet been visited, so add it to visited and sets
+				// its quantity to 1
+
 				visited.add(item);
 				quantities.add(1);
-			}else{
-				// increment its quantity in visited
+			} else {
 				// already been visited, increment its quantity
-				
+
 				int index = visited.indexOf(item);
 				quantities.set(index, quantities.get(index) + 1);
 			}
-					
+
 		}
-		
-		
+
 		request.setAttribute("cartItems", visited);
 		request.setAttribute("quantities", quantities);
+		request.setAttribute("totalPrice", this.totalPrice);
 		request.getRequestDispatcher("/ShoppingCartPage.jspx").forward(request, response);
 
 	}

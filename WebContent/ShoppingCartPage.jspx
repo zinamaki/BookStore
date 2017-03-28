@@ -14,11 +14,15 @@
 	<p>Shopping Cart</p>
 
 	<c:forEach var="msg" items="${requestScope.cartItems}" varStatus="status">
-			${msg} ${requestScope.quantities[status.index]}
+			${msg} 
 			<button>Delete</button>
-			<input type="text">Quantity</input> 
+			<input type="text" value="${requestScope.quantities[status.index]}"></input> 
+			<button>Update quantity</button>
 			<br/>
 	</c:forEach>
+	<br/>
+	Total cost: ${requestScope.totalPrice}
+	
 </body>
 	</html>
 </jsp:root>
