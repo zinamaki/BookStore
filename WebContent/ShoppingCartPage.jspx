@@ -21,7 +21,7 @@
 			<br/>
 	</c:forEach>
 	<br/>
-	Total cost: ${requestScope.totalPrice}
+	Total cost: ${requestScope.totalPrice} <button>Check out</button>
 	
 </body>
 	</html>

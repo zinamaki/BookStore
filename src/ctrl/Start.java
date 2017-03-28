@@ -28,7 +28,7 @@ public class Start extends HttpServlet {
 	boolean loggedIn;
 
 	double totalPrice;
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -44,6 +44,7 @@ public class Start extends HttpServlet {
 			this.cart = new ArrayList<String>();
 			this.itemsInCart = 0;
 			this.loggedIn = false;
+			this.totalPrice = 0;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,44 +117,6 @@ public class Start extends HttpServlet {
 
 	}
 
-	private void displaySearchPage(String search, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		String[][] display = getAllResults(search);
-		request.setAttribute("messageList", display);
-		request.getRequestDispatcher("/SearchPage.jspx").forward(request, response);
-
-	}
-
-	private String[][] getAllResults(String search) {
-		// TODO Auto-generated method stub
-		try {
-
-			Map<String, BookBean> result = this.database.retrieveAllResults(search);
-
-			System.out.println(result.size());
-
-			String[][] output = new String[result.size()][5];
-
-			for (int i = 0; i < result.size(); i++) {
-
-				String title = result.get(Integer.toString(i)).getTitle();
-				String price = result.get(Integer.toString(i)).getPrice();
-				String category = result.get(Integer.toString(i)).getCategory();
-				String author = result.get(Integer.toString(i)).getAuthor();
-
-				output[i][1] = title;
-				output[i][2] = price;
-				output[i][3] = category;
-				output[i][4] = author;
-
-			}
-			return output;
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
 	private void logout() {
 
 		this.loggedIn = false;
@@ -172,12 +135,12 @@ public class Start extends HttpServlet {
 		String book = request.getParameter("cart");
 
 		cart.add(book);
-		
+
 		// now we increase the total price
 
 		int dollar = book.indexOf("$");
-		
-		String price = book.substring(dollar+1, book.length());
+
+		String price = book.substring(dollar + 1, book.length());
 		this.totalPrice += Double.parseDouble(price);
 
 	}
@@ -186,6 +149,11 @@ public class Start extends HttpServlet {
 
 		this.itemsInCart++;
 	}
+
+	/*
+	 * This group of methods creates the view of each page and then dispatches
+	 * to the appropriate jspx page
+	 */
 
 	private void displayBookPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -312,6 +280,49 @@ public class Start extends HttpServlet {
 		System.out.println("Registration button pressed");
 		request.getRequestDispatcher("/RegisterPage.jspx").forward(request, response);
 
+	}
+
+	private void displaySearchPage(String search, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String[][] display = getAllResults(search);
+		request.setAttribute("messageList", display);
+		request.getRequestDispatcher("/SearchPage.jspx").forward(request, response);
+
+	}
+	
+	/*
+	 * This group of methods gets the resuls from the database and puts it in a
+	 * 2d array to be easily displayed
+	 */
+
+	private String[][] getAllResults(String search) {
+		// TODO Auto-generated method stub
+		try {
+
+			Map<String, BookBean> result = this.database.retrieveAllResults(search);
+
+			System.out.println(result.size());
+
+			String[][] output = new String[result.size()][5];
+
+			for (int i = 0; i < result.size(); i++) {
+
+				String title = result.get(Integer.toString(i)).getTitle();
+				String price = result.get(Integer.toString(i)).getPrice();
+				String category = result.get(Integer.toString(i)).getCategory();
+				String author = result.get(Integer.toString(i)).getAuthor();
+
+				output[i][1] = title;
+				output[i][2] = price;
+				output[i][3] = category;
+				output[i][4] = author;
+
+			}
+			return output;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	private String[][] getAllBooks() {
