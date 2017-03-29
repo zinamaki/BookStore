@@ -26,7 +26,7 @@ public class Start extends HttpServlet {
 	int itemsInCart;
 	ArrayList<String> cart;
 	boolean loggedIn;
-
+	ArrayList<String> visited ;
 	double totalPrice;
 
 	/**
@@ -113,7 +113,14 @@ public class Start extends HttpServlet {
 			System.out.println("update button pressed");
 
 			String bookToUpdate = request.getParameter("updateQuantity");
-			String quantity = request.getParameter("quantity");
+			
+			String values[] = request.getParameterValues("quantity"); 
+			
+			// figure out which book they are updating
+			
+			int index = visited.indexOf(bookToUpdate);
+			
+			String quantity = values[index];
 
 			updateBookCart(bookToUpdate, quantity);
 			displayShoppingPage(request, response);
@@ -270,7 +277,7 @@ public class Start extends HttpServlet {
 
 		ArrayList<Integer> quantities = new ArrayList<Integer>();
 
-		ArrayList<String> visited = new ArrayList<String>();
+		visited = new ArrayList<String>();
 
 		for (String item : cart) {
 
