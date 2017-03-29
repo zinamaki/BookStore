@@ -79,8 +79,9 @@ public class BookDAO {
 	}
 	
 	public Map<String, BookBean> retrieveBySearch(String param) throws SQLException{
-
-		String query = "select * from book where LOWER(title) like LOWER('%" + param + "%') union select * from book where LOWER(author) like LOWER('%" + param + " %')";
+		System.out.println("**" + param + "**");
+		String query = "select * from book where LOWER(title) like LOWER('%" + param + "%') or LOWER(author) like LOWER('%" + param + "%')";
+		System.out.println(query);
 		return runQuery(query);
 		
 	}
