@@ -16,7 +16,7 @@
 	<c:forEach var="msg" items="${requestScope.cartItems}" varStatus="status">
 			${msg} 
 			<button type="submit" name="deleteQuantity" value="${msg}">Delete</button>
-			<input type="text" value="${requestScope.quantities[status.index]}" size="3"></input> 
+			<input type="text" name="quantity" value="${requestScope.quantities[status.index]}" size="3"></input> 
 			<button type="submit" name="updateQuantity" value="${msg}">Update quantity</button>
 			<br/>
 	</c:forEach>

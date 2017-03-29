@@ -64,13 +64,12 @@ public class Start extends HttpServlet {
 		boolean shoppingPressed = "Shopping Cart".equals(request.getParameter("shopping"));
 		boolean logoutPressed = "Logout".equals(request.getParameter("logout"));
 		boolean searchPressed = "Search".equals(request.getParameter("searchButton"));
-		
+
 		String deleteQuantityPressed = request.getParameter("deleteQuantity");
 		String updateQuantityPressed = request.getParameter("updateQuantity");
 
 		String bookPressed = request.getParameter("book");
 		String cartPressed = request.getParameter("cart");
-		
 
 		if (registerPressed) {
 
@@ -96,7 +95,7 @@ public class Start extends HttpServlet {
 		} else if (cartPressed != null) {
 
 			incrementItemsInCart();
-			addItemToCart(request);
+			addItemToCart(cartPressed);
 			displayMainPage(request, response);
 
 		} else if (searchPressed) {
@@ -112,18 +111,19 @@ public class Start extends HttpServlet {
 		} else if (updateQuantityPressed != null) {
 
 			System.out.println("update button pressed");
-			
+
+			String bookToUpdate = request.getParameter("updateQuantity");
+			String quantity = request.getParameter("quantity");
+
+			updateBookCart(bookToUpdate, quantity);
 			displayShoppingPage(request, response);
 
 		} else if (deleteQuantityPressed != null) {
 
 			System.out.println("delete button pressed");
-			
-			String bookToRemove = request.getParameter("deleteQuantity");
-			
-			deleteBookCart(bookToRemove);
-			
 
+			String bookToRemove = request.getParameter("deleteQuantity");
+			deleteBookCart(bookToRemove);
 			displayShoppingPage(request, response);
 
 		} else {
@@ -134,30 +134,87 @@ public class Start extends HttpServlet {
 
 	}
 
-	private void deleteBookCart(String bookToRemove) {
+	private void updateBookCart(String bookToUpdate, String quantity) {
+
+		// then we need to add some to the cart
+
+		while (numInCart(bookToUpdate) < Integer.parseInt(quantity)) {
+			System.out.println("Add some books");
+			addItemToCart(bookToUpdate);
+		}
+
+		// then we need to remove some from the cart
+		while (numInCart(bookToUpdate) > Integer.parseInt(quantity)) {
+			System.out.println("Remove some books");
+			deleteOneCart(bookToUpdate);
+		}
+
+	}
+
+	private void deleteOneCart(String bookToDelete) {
 		// TODO Auto-generated method stub
-		
+
+		int toDelete = -1;
+
+		for (String item : cart) {
+
+			if (item.equals(bookToDelete)) {
+				toDelete = cart.indexOf(item);
+
+			}
+
+		}
+
+		if (toDelete >= 0) {
+
+			String item = cart.get(toDelete);
+
+			int dollar = item.indexOf("$");
+			String price = item.substring(dollar + 1, item.length());
+			this.totalPrice -= Double.parseDouble(price);
+
+			cart.remove(toDelete);
+
+		}
+
+	}
+
+	private int numInCart(String book) {
+
+		int counter = 0;
+
+		for (String item : cart) {
+
+			if (item.equals(book)) {
+				counter++;
+			}
+
+		}
+
+		return counter;
+
+	}
+
+	private void deleteBookCart(String bookToRemove) {
+
 		ArrayList<Integer> toDelete = new ArrayList<Integer>();
-		
-		for(String item : cart){
-			
-			if(item.equals(bookToRemove)){
+
+		for (String item : cart) {
+
+			if (item.equals(bookToRemove)) {
 				toDelete.add(cart.indexOf(item));
 				int dollar = item.indexOf("$");
 				String price = item.substring(dollar + 1, item.length());
 				this.totalPrice -= Double.parseDouble(price);
 			}
-			
+
 		}
-		
-		for(int i : toDelete){
-			
+
+		for (int i : toDelete) {
+
 			cart.remove(i);
 		}
-		
-		
-		
-		
+
 	}
 
 	private void logout() {
@@ -170,12 +227,10 @@ public class Start extends HttpServlet {
 		this.loggedIn = true;
 	}
 
-	private void addItemToCart(HttpServletRequest request) {
+	private void addItemToCart(String book) {
 		// TODO Auto-generated method stub
 
 		// now we add the thing in cart= to the shopping cart page
-
-		String book = request.getParameter("cart");
 
 		cart.add(book);
 
