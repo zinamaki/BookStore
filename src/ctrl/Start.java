@@ -26,7 +26,7 @@ public class Start extends HttpServlet {
 	int itemsInCart;
 	ArrayList<String> cart;
 	boolean loggedIn;
-	ArrayList<String> visited ;
+	ArrayList<String> visited;
 	double totalPrice;
 
 	/**
@@ -34,19 +34,20 @@ public class Start extends HttpServlet {
 	 */
 	public Start() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void init() {
 
 		try {
+
 			this.database = new SIS();
 			this.cart = new ArrayList<String>();
 			this.itemsInCart = 0;
 			this.loggedIn = false;
 			this.totalPrice = 0;
+
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
@@ -103,8 +104,15 @@ public class Start extends HttpServlet {
 			String search = request.getParameter("search");
 
 			if (search != null) {
+
+				// if they searched then take them to the search page
+
 				displaySearchPage(search, request, response);
 			} else {
+
+				// if they did not search anything, then take them to the
+				// homepage
+
 				displayMainPage(request, response);
 			}
 
@@ -113,13 +121,13 @@ public class Start extends HttpServlet {
 			System.out.println("update button pressed");
 
 			String bookToUpdate = request.getParameter("updateQuantity");
-			
-			String values[] = request.getParameterValues("quantity"); 
-			
+
+			String values[] = request.getParameterValues("quantity");
+
 			// figure out which book they are updating
-			
+
 			int index = visited.indexOf(bookToUpdate);
-			
+
 			String quantity = values[index];
 
 			updateBookCart(bookToUpdate, quantity);
@@ -143,14 +151,15 @@ public class Start extends HttpServlet {
 
 	private void updateBookCart(String bookToUpdate, String quantity) {
 
-		// then we need to add some to the cart
+		// the number in the cart is too low, so we need to add some to the cart
 
 		while (numInCart(bookToUpdate) < Integer.parseInt(quantity)) {
 			System.out.println("Add some books");
 			addItemToCart(bookToUpdate);
 		}
 
-		// then we need to remove some from the cart
+		// the number in the cart is too high, so we need to remove some from
+		// the cart
 		while (numInCart(bookToUpdate) > Integer.parseInt(quantity)) {
 			System.out.println("Remove some books");
 			deleteOneCart(bookToUpdate);
@@ -158,8 +167,11 @@ public class Start extends HttpServlet {
 
 	}
 
+	/*
+	 * Delete one copy of the passed in book from the shopping cart, and update
+	 * the total price of the cart
+	 */
 	private void deleteOneCart(String bookToDelete) {
-		// TODO Auto-generated method stub
 
 		int toDelete = -1;
 
@@ -186,6 +198,9 @@ public class Start extends HttpServlet {
 
 	}
 
+	/*
+	 * Return the number of copies of a particular book in the shopping cart
+	 */
 	private int numInCart(String book) {
 
 		int counter = 0;
@@ -202,6 +217,10 @@ public class Start extends HttpServlet {
 
 	}
 
+	/*
+	 * Delete all copies of the passed in book from the shopping cart, and
+	 * update the total price
+	 */
 	private void deleteBookCart(String bookToRemove) {
 
 		ArrayList<Integer> toDelete = new ArrayList<Integer>();
@@ -224,18 +243,26 @@ public class Start extends HttpServlet {
 
 	}
 
+	/*
+	 * Set the loggedIn boolean value to false
+	 */
 	private void logout() {
 
 		this.loggedIn = false;
 	}
 
+	/*
+	 * Set the loggedIn boolean value to true
+	 */
 	private void login() {
 
 		this.loggedIn = true;
 	}
 
+	/*
+	 * Add the book to the shopping cart, and update the price of the cart
+	 */
 	private void addItemToCart(String book) {
-		// TODO Auto-generated method stub
 
 		// now we add the thing in cart= to the shopping cart page
 
@@ -250,6 +277,9 @@ public class Start extends HttpServlet {
 
 	}
 
+	/*
+	 * Increase the number of items in the cart
+	 */
 	private void incrementItemsInCart() {
 
 		this.itemsInCart++;
