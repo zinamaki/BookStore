@@ -66,6 +66,8 @@ public class Start extends HttpServlet {
 		boolean logoutPressed = "Logout".equals(request.getParameter("logout"));
 
 		boolean searchPressed = "Search".equals(request.getParameter("searchButton"));
+		boolean deleteQuantityPressed = "Delete".equals(request.getParameter("deleteQuantity"));
+		boolean updateQuantityPressed = "Update".equals(request.getParameter("updateQuantity"));
 
 		String bookPressed = request.getParameter("book");
 		String cartPressed = request.getParameter("cart");
@@ -107,8 +109,15 @@ public class Start extends HttpServlet {
 				displayMainPage(request, response);
 			}
 
+		} else if(updateQuantityPressed){
+			
+			System.out.println("update button pressed");
+			
+		} else if(deleteQuantityPressed){
+			
+			System.out.println("delete button pressed");
+			
 		}
-
 		else {
 
 			displayMainPage(request, response);

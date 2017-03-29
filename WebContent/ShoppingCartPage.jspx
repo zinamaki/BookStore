@@ -12,14 +12,15 @@
 </head>
 <body>
 	<p>Shopping Cart</p>
-
+<form>
 	<c:forEach var="msg" items="${requestScope.cartItems}" varStatus="status">
 			${msg} 
-			<button>Delete</button>
-			<input type="text" value="${requestScope.quantities[status.index]}"></input> 
-			<button>Update quantity</button>
+			<button type="submit" name="deleteQuantity" value="Delete">Delete</button>
+			<input type="text" value="${requestScope.quantities[status.index]}" size="3"></input> 
+			<button type="submit" name="updateQuantity" value="Update">Update quantity</button>
 			<br/>
 	</c:forEach>
+	</form>
 	<br/>
 	Total cost: ${requestScope.totalPrice} <button>Check out</button>
 	
