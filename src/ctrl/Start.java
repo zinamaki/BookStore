@@ -62,15 +62,15 @@ public class Start extends HttpServlet {
 		boolean registerPressed = "Register".equals(request.getParameter("register"));
 		boolean loginPressed = "Login".equals(request.getParameter("login"));
 		boolean shoppingPressed = "Shopping Cart".equals(request.getParameter("shopping"));
-
 		boolean logoutPressed = "Logout".equals(request.getParameter("logout"));
-
 		boolean searchPressed = "Search".equals(request.getParameter("searchButton"));
-		boolean deleteQuantityPressed = "Delete".equals(request.getParameter("deleteQuantity"));
-		boolean updateQuantityPressed = "Update".equals(request.getParameter("updateQuantity"));
+		
+		String deleteQuantityPressed = request.getParameter("deleteQuantity");
+		String updateQuantityPressed = request.getParameter("updateQuantity");
 
 		String bookPressed = request.getParameter("book");
 		String cartPressed = request.getParameter("cart");
+		
 
 		if (registerPressed) {
 
@@ -109,21 +109,55 @@ public class Start extends HttpServlet {
 				displayMainPage(request, response);
 			}
 
-		} else if(updateQuantityPressed){
-			
+		} else if (updateQuantityPressed != null) {
+
 			System.out.println("update button pressed");
 			
-		} else if(deleteQuantityPressed){
-			
+			displayShoppingPage(request, response);
+
+		} else if (deleteQuantityPressed != null) {
+
 			System.out.println("delete button pressed");
 			
-		}
-		else {
+			String bookToRemove = request.getParameter("deleteQuantity");
+			
+			deleteBookCart(bookToRemove);
+			
+
+			displayShoppingPage(request, response);
+
+		} else {
 
 			displayMainPage(request, response);
 
 		}
 
+	}
+
+	private void deleteBookCart(String bookToRemove) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<Integer> toDelete = new ArrayList<Integer>();
+		
+		for(String item : cart){
+			
+			if(item.equals(bookToRemove)){
+				toDelete.add(cart.indexOf(item));
+				int dollar = item.indexOf("$");
+				String price = item.substring(dollar + 1, item.length());
+				this.totalPrice -= Double.parseDouble(price);
+			}
+			
+		}
+		
+		for(int i : toDelete){
+			
+			cart.remove(i);
+		}
+		
+		
+		
+		
 	}
 
 	private void logout() {
@@ -166,7 +200,6 @@ public class Start extends HttpServlet {
 
 	private void displayBookPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Book button pressed");
 
 		// now we should get the name of the book, the name of the author and
 		// display it in jspx
@@ -179,7 +212,6 @@ public class Start extends HttpServlet {
 
 	private void displayShoppingPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Shopping cart button pressed");
 
 		ArrayList<Integer> quantities = new ArrayList<Integer>();
 
@@ -299,7 +331,7 @@ public class Start extends HttpServlet {
 		request.getRequestDispatcher("/SearchPage.jspx").forward(request, response);
 
 	}
-	
+
 	/*
 	 * This group of methods gets the resuls from the database and puts it in a
 	 * 2d array to be easily displayed
