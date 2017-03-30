@@ -67,6 +67,8 @@ public class Start extends HttpServlet {
 		boolean logoutPressed = "Logout".equals(request.getParameter("logout"));
 		boolean searchPressed = "Search".equals(request.getParameter("searchButton"));
 
+		boolean addReviewPressed = "Review".equals(request.getParameter("addReview"));
+		
 		String deleteQuantityPressed = request.getParameter("deleteQuantity");
 		String updateQuantityPressed = request.getParameter("updateQuantity");
 
@@ -142,6 +144,11 @@ public class Start extends HttpServlet {
 			deleteBookCart(bookToRemove);
 			displayShoppingPage(request, response);
 
+		} else if (addReviewPressed){
+			
+			System.out.println("add review pressed");
+		
+			
 		} else {
 
 			displayMainPage(request, response);
@@ -297,7 +304,6 @@ public class Start extends HttpServlet {
 		// now we should get the name of the book, the name of the author and
 		// display it in jspx
 		String title = request.getParameter("book");
-		
 		
 		int indexBy = title.indexOf("by");
 		
