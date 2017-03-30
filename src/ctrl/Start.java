@@ -92,7 +92,7 @@ public class Start extends HttpServlet {
 
 			displayShoppingPage(request, response);
 
-		} else if (bookPressed != null) {
+		} else if (bookPressed != null && !addReviewPressed) {
 
 			displayBookPage(request, response);
 
@@ -147,7 +147,34 @@ public class Start extends HttpServlet {
 		} else if (addReviewPressed){
 			
 			System.out.println("add review pressed");
-		
+			
+			String email = request.getParameter("email");
+			String rating = request.getParameter("rating");
+			String review = request.getParameter("review");
+			String title = request.getParameter("book");
+			
+			int indexBy = title.indexOf("by");
+			
+			String bookname = title.substring(0,indexBy-1);
+			
+			if (email == null || email.equals("") || rating == null || rating.equals("")) {
+				// they messed up
+			} else {
+			int indexDash = title.indexOf("-");
+			
+			String author = title.substring(indexBy+3,indexDash-1);
+
+			try {
+				database.addNewReview(email, author, rating,review,bookname);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			displayBookPage(request,response);
 			
 		} else {
 
@@ -156,7 +183,7 @@ public class Start extends HttpServlet {
 		}
 
 	}
-
+	
 	private void updateBookCart(String bookToUpdate, String quantity) {
 
 		// the number in the cart is too low, so we need to add some to the cart

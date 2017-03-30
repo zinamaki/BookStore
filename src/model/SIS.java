@@ -58,6 +58,12 @@ public class SIS {
 		
 	}
 	
+	public void addNewReview(String email, String author, String rating, String review, String title) throws NumberFormatException, SQLException {
+		
+		this.reviewDAO.addReview(title, author,email,Integer.parseInt(rating),review);
+		
+	}	
+	
 	public boolean loginUser(String email, String password) throws SQLException{
 		
 		UserBean result = this.userDAO.loginUser(email, password);

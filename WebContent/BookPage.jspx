@@ -18,9 +18,11 @@
 	<br/>
 	<br/>
 	<form>
+		<input type="text" name="book" value="${requestScope.title}"></input><br/>
 		<label>Email:</label> <input type="text" name="email" required="true"></input><br />
-		<label>Rating:</label> <input type="text" name="fname"></input><br />
-		<label>Review:</label> <input type="text" name="lname"></input><br />
+		<label>Rating:</label> <input type="text" name="rating"></input><br />
+		<label>Review:</label> <input type="text" name="review"></input><br />
+		
 		<input type="submit" name="addReview" value="Review"></input><br/>
 	</form>
 	
