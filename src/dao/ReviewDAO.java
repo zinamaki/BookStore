@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import bean.BookBean;
 import bean.ReviewBean;
 
 public class ReviewDAO {
@@ -27,40 +28,43 @@ public class ReviewDAO {
 		}
 	}
 	
-public Map<String, ReviewBean> runQuery(String query) throws SQLException{
-		
+	public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 		Map<String, ReviewBean> rv = new HashMap<String, ReviewBean>();
-		Connection con = this.ds.getConnection();
-		PreparedStatement p = con.prepareStatement(query);
-		ResultSet r = p.executeQuery();
-		int counter = 0;
-		while(r.next()){
-				
-			String title = r.getString("title");
-			String author = r.getString("author");
-			String email = r.getString("email");
+		
+		Connection con;
+		try {
+			
+			con = this.ds.getConnection();
+			PreparedStatement p = con.prepareStatement(query);
+			ResultSet r = p.executeQuery();
+			int counter = 0;
+			
+			while (r.next()) {
 
-			String query2 = "select fName, lname from Users where email = " + email;
-			PreparedStatement p2 = con.prepareStatement(query2);
-			ResultSet r2 = p2.executeQuery();
-			r2.next();
-			String fullName = r2.getString("fname") + " " + r2.getString("lname");
-			int rating = r.getInt("rating");
-			String review = r.getString("review");
-			
-			ReviewBean reviewBean = new ReviewBean(title, author, email, fullName, rating, review);
-			
-			rv.put(Integer.toString(counter), reviewBean);
-			counter ++;
-			
-			p2.close();
-			r2.close();
-			
+				String title = r.getString("title");
+				String author = r.getString("author");
+				String email = r.getString("email");
+				int rating = r.getInt("rating");
+				String review = r.getString("review");
+
+				ReviewBean tmp = new ReviewBean(title, author, email, "NAME BUDDY", rating, review);
+
+				String counterString = Integer.toString(counter);
+
+				rv.put(counterString, tmp);
+
+				counter++;
+			}
+
+			r.close();
+			p.close();
+			con.close();
+
+			return rv;
+		} catch (SQLException e) {
+			System.out.println("Error in ReviewDAO");
+			return null;
 		}
-		r.close();
-		p.close();
-		con.close();
-		return rv;
 		
 	}
 	
@@ -69,6 +73,13 @@ public Map<String, ReviewBean> runQuery(String query) throws SQLException{
 		return runQuery(query);
 		
 	}
+	
+	public Map<String, ReviewBean> retrieveByBook(String title) throws SQLException{
+		String query = "select * from review where title='" + title + "'";
+		return runQuery(query);
+		
+	}
+	
 	
 	public Map<String, ReviewBean> retrieveByRating(int rating) throws SQLException{
 		String query = "select * from review where rating =" + rating;

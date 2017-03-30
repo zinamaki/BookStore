@@ -19,6 +19,7 @@ import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
 
 import bean.BookBean;
+import bean.ReviewBean;
 import bean.UserBean;
 import dao.BookDAO;
 import dao.PurchaseDAO;
@@ -76,6 +77,16 @@ public class SIS {
 			return null;
 		}
 	}
+	
+	public Map<String,ReviewBean> retrieveByBook(String title){
+		try {
+			return reviewDAO.retrieveByBook(title);
+		} catch (SQLException e) {
+			return null;
+		}
+	}
+	
+	
 	
 
 	

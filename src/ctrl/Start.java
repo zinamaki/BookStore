@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.BookBean;
+import bean.ReviewBean;
 import model.SIS;
 
 /**
@@ -296,7 +297,16 @@ public class Start extends HttpServlet {
 		// now we should get the name of the book, the name of the author and
 		// display it in jspx
 		String title = request.getParameter("book");
-
+		
+		
+		int indexBy = title.indexOf("by");
+		
+		String bookname = title.substring(0,indexBy-1);
+		
+		
+		String[][] display = getAllReviews(bookname);
+		
+		request.setAttribute("messageList", display);
 		request.setAttribute("title", title);
 		request.getRequestDispatcher("/BookPage.jspx").forward(request, response);
 
@@ -428,6 +438,41 @@ public class Start extends HttpServlet {
 	 * This group of methods gets the resuls from the database and puts it in a
 	 * 2d array to be easily displayed
 	 */
+	
+	
+	private String[][] getAllReviews(String titles) {
+		
+		try {
+
+			Map<String, ReviewBean> result = this.database.retrieveByBook(titles);
+
+			if(result == null){
+				System.out.println("NULL BUDDY");
+			}
+			
+			System.out.println("made it here " + result.size());
+
+			String[][] output = new String[result.size()][5];
+
+			for (int i = 0; i < result.size(); i++) {
+
+				String title = result.get(Integer.toString(i)).getTitle();
+				String author = result.get(Integer.toString(i)).getAuthor();
+				String review = result.get(Integer.toString(i)).getReview();
+				
+
+				output[i][1] = title;
+				output[i][2] = author;
+				output[i][3] = review;
+		
+
+			}
+			return output;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 
 	private String[][] getAllResults(String search) {
 		// TODO Auto-generated method stub
