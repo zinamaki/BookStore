@@ -12,6 +12,15 @@
 </head>
 <body>
 
+
+	Please enter your credit card information
+	
+	<form>
+	
+		<input type="text" name="creditCard"></input>
+		<input type="submit" name="pay" value="Pay"></input>
+	</form>
+
 </body>
 </html>
 </jsp:root>

@@ -68,6 +68,8 @@ public class Start extends HttpServlet {
 		boolean searchPressed = "Search".equals(request.getParameter("searchButton"));
 
 		boolean addReviewPressed = "Review".equals(request.getParameter("addReview"));
+		boolean checkoutPressed = "Checkout".equals(request.getParameter("checkout"));
+		boolean payPressed = "Pay".equals(request.getParameter("pay"));
 		
 		String deleteQuantityPressed = request.getParameter("deleteQuantity");
 		String updateQuantityPressed = request.getParameter("updateQuantity");
@@ -176,6 +178,14 @@ public class Start extends HttpServlet {
 			}
 			displayBookPage(request,response);
 			
+		} else if(checkoutPressed){
+			
+			System.out.println("Checkout pressed");
+			displayPaymentPage(request, response);
+		} else if(payPressed){
+			
+			System.out.println("Pay pressed");
+			displayShippingPage(request,response);
 		} else {
 
 			displayMainPage(request, response);
@@ -184,6 +194,16 @@ public class Start extends HttpServlet {
 
 	}
 	
+	private void displayShippingPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/ShippingPage.jspx").forward(request, response);
+		
+	}
+
+	private void displayPaymentPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/PaymentPage.jspx").forward(request, response);
+		
+	}
+
 	private void updateBookCart(String bookToUpdate, String quantity) {
 
 		// the number in the cart is too low, so we need to add some to the cart
