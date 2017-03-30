@@ -12,6 +12,17 @@
 </head>
 <body>
 	Here is the book you saw: ${requestScope.title}
+	<br/>
+	<br/>
+	Write a review
+	<br/>
+	<br/>
+	<form>
+		<label>Email:</label> <input type="text" name="email" required="true"></input><br />
+		<label>Rating:</label> <input type="text" name="fname"></input><br />
+		<label>Review:</label> <input type="text" name="lname"></input><br />
+		<input type="submit" name="addReview"></input><br/>
+	</form>
 	
 	<table id="result" border="1">
 			<tr>

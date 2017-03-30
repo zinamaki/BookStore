@@ -439,18 +439,11 @@ public class Start extends HttpServlet {
 	 * 2d array to be easily displayed
 	 */
 	
-	
 	private String[][] getAllReviews(String titles) {
 		
 		try {
 
 			Map<String, ReviewBean> result = this.database.retrieveByBook(titles);
-
-			if(result == null){
-				System.out.println("NULL BUDDY");
-			}
-			
-			System.out.println("made it here " + result.size());
 
 			String[][] output = new String[result.size()][5];
 
@@ -459,8 +452,7 @@ public class Start extends HttpServlet {
 				String title = result.get(Integer.toString(i)).getTitle();
 				String author = result.get(Integer.toString(i)).getAuthor();
 				String review = result.get(Integer.toString(i)).getReview();
-				
-
+			
 				output[i][1] = title;
 				output[i][2] = author;
 				output[i][3] = review;
@@ -539,7 +531,7 @@ public class Start extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 
