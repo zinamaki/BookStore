@@ -152,7 +152,6 @@ public class Start extends HttpServlet {
 
 			// System.out.println("add review pressed");
 
-			String email = request.getParameter("email");
 			String rating = request.getParameter("rating");
 			String review = request.getParameter("review");
 			String title = request.getParameter("book");
@@ -375,7 +374,7 @@ public class Start extends HttpServlet {
 
 		request.setAttribute("messageList", display);
 		request.setAttribute("title", title);
-		// request.setAttribute("reviewed", true);
+		request.setAttribute("loggedIn", this.loggedIn);
 		request.getRequestDispatcher("/BookPage.jspx").forward(request, response);
 
 	}

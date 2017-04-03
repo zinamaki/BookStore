@@ -21,12 +21,8 @@
 	<form>
 
 		<c:choose>
-			<c:when test="${reviewed}">You have already reviewed this</c:when>
-			<c:otherwise>
-				<input type="text" name="book" value="${requestScope.title}"></input>
-				<br />
-				<label>Email:</label>
-				<input type="text" name="email" required="true"></input>
+			<c:when test="${loggedIn}">
+				<input type="text" name="book" value="${requestScope.title}" style="display: none;"></input>
 				<br />
 				<label>Rating:</label>
 				<select  name="rating">
@@ -41,7 +37,10 @@
 				<input type="text" name="review"></input>
 				<br />
 				<input type="submit" name="addReview" value="Review"></input>
-				<br />
+				<br /></c:when>
+			<c:otherwise>
+				You must log in to review this
+				<input type="submit" name="login" value="Login"></input>
 			</c:otherwise>
 		</c:choose>
 
