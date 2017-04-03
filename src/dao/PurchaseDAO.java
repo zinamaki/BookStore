@@ -115,7 +115,7 @@ public class PurchaseDAO {
 			String update = "INSERT INTO POItem (id, title, author, quantity) VALUES (" + poId + ", '" + bookname
 					+ "', '" + author + "', " + Start.numInCart(item) + ")";
 			
-			System.out.println(update);
+			//System.out.println(update);
 			
 			sta.executeUpdate(update);
 		}

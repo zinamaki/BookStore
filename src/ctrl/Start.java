@@ -125,7 +125,7 @@ public class Start extends HttpServlet {
 
 		} else if (updateQuantityPressed != null) {
 
-			//System.out.println("update button pressed");
+			// System.out.println("update button pressed");
 
 			String bookToUpdate = request.getParameter("updateQuantity");
 
@@ -150,7 +150,7 @@ public class Start extends HttpServlet {
 
 		} else if (addReviewPressed) {
 
-		//	System.out.println("add review pressed");
+			// System.out.println("add review pressed");
 
 			String email = request.getParameter("email");
 			String rating = request.getParameter("rating");
@@ -188,19 +188,16 @@ public class Start extends HttpServlet {
 		} else if (payPressed) {
 
 			System.out.println("Pay pressed");
-			
+
 			// add the purchase order
-			
-			
+
 			try {
-				database.addNewOrder(this.email,cart);
+				database.addNewOrder(this.email, cart);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			
-			
 			displayShippingPage(request, response);
 		} else {
 
@@ -582,7 +579,7 @@ public class Start extends HttpServlet {
 				String category = result.get(Integer.toString(i)).getCategory();
 				String author = result.get(Integer.toString(i)).getAuthor();
 				String picture = result.get(Integer.toString(i)).getPicture();
-				
+
 				output[i][1] = title;
 				output[i][2] = price;
 				output[i][3] = category;
