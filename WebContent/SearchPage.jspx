@@ -8,6 +8,7 @@
 		omit-xml-declaration="true" />
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<link rel="stylesheet" href="style.css"></link>
 <title>Insert title here</title>
 </head>
 <body>

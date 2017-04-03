@@ -10,6 +10,7 @@
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Insert title here</title>
+<link rel="stylesheet" href="style.css"></link>
 </head>
 <body>
 	Here is the book you saw: ${requestScope.title}
