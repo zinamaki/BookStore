@@ -1,2 +1,5 @@
 /WebContent/META-INF/context.xml
 /WebContent/export/MyDB
+.classpath
+build/classes/.DS_Store
+src/.DS_Store

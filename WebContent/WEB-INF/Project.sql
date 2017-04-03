@@ -37,6 +37,7 @@ INSERT INTO Category (category) VALUES ('Children');
 INSERT INTO Category (category) VALUES ('Business');
 
 CREATE TABLE Book (
+    id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 	title VARCHAR(200) NOT NULL,
 	author VARCHAR(20) NOT NULL,
 	price INT NOT NULL,
@@ -103,6 +104,7 @@ INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Marria
 INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Bob', 'Tegon Maus', 516, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/51gRoDivvdL._AA200_.jpg');
 INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Woman in Cabin 10', 'Ruthe Ware', 1299, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/5152bP-jCBL._AA200_.jpg');
 INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Big Little Lies', 'Liane Moriarty', 3012, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/51RCEaRazQL._AA200_.jpg');
+
 CREATE TABLE Status (
     status varchar(20) not null,
     constraint stat_pk
@@ -190,7 +192,7 @@ CREATE TABLE POItem (
 	id INT NOT NULL,
 	title VARCHAR(200) NOT NULL,
     author VARCHAR(20) NOT NULL,
-	price INT NOT NULL,
+	quantity INT NOT NULL,
 	PRIMARY KEY(id, title, author),
 --	INDEX (id),
 	FOREIGN KEY(id) REFERENCES PO(id) ON DELETE CASCADE,
@@ -198,15 +200,17 @@ CREATE TABLE POItem (
 	FOREIGN KEY(title, author) REFERENCES Book(title, author) ON DELETE CASCADE,
 	constraint poit_id_pos
        check (id > 0),
-    constraint price_pos
-       check (price > 0)
+    constraint quant
+        check (quantity > 0)
 );
 --#
 --# Inserting data for table 'POitem'
 --#
-INSERT INTO POItem (id, title, author, price) VALUES (1, 'Little Prince', 'John Johnson', 20);
-INSERT INTO POItem (id, title, author, price) VALUES (2, 'Little Prince', 'John Johnson', 201);
-INSERT INTO POItem (id, title, author, price) VALUES (3, 'Little Prince', 'John Johnson', 100);
+INSERT INTO POItem (id, title, author,  quantity) VALUES (1, 'Little Prince', 'John Johnson', 2);
+INSERT INTO POItem (id, title, author, quantity) VALUES (1, 'Physics', 'Jeff Sions', 2);
+INSERT INTO POItem (id, title, author, quantity) VALUES (4, 'Little Prince', 'John Johnson', 10);
+INSERT INTO POItem (id, title, author, quantity) VALUES (2, 'Little Prince', 'John Johnson', 1);
+INSERT INTO POItem (id, title, author, quantity) VALUES (3, 'Little Prince', 'John Johnson', 1);
 
 CREATE TABLE EventType (
     eventtype varchar(20) not null,
@@ -257,3 +261,15 @@ CREATE TABLE Review (
 INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'john@gmail.com', 4, 'I love this book');
 INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'peter@gmail.com', 3, 'I like this book');
 INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'andy@gmail.com', 1, 'I hate this book');
+
+--select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL
+--from PO P, POItem I, Book B 
+--where P.id = I.id and B.title = I.title and B.author = I.author
+--group by P.email, B.title, B.author
+--
+--select C.email, sum(TOTAL) 
+--from (select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL
+--    from PO P, POItem I, Book B 
+--    where P.id = I.id and B.title = I.title and B.author = I.author
+--    group by P.email, B.title, B.author) as C
+--group by C.email;
