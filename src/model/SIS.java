@@ -64,6 +64,10 @@ public class SIS {
 		
 	}	
 	
+	public boolean addNewOrder(String email, Map<BookBean, Integer> cart) throws SQLException{
+		return this.purchaseDAO.submitOrder(email, cart);
+	}
+	
 	public boolean loginUser(String email, String password) throws SQLException{
 		
 		UserBean result = this.userDAO.loginUser(email, password);

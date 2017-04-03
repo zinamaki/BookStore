@@ -123,7 +123,7 @@ public class Start extends HttpServlet {
 
 		} else if (updateQuantityPressed != null) {
 
-			System.out.println("update button pressed");
+			//System.out.println("update button pressed");
 
 			String bookToUpdate = request.getParameter("updateQuantity");
 
@@ -148,7 +148,7 @@ public class Start extends HttpServlet {
 
 		} else if (addReviewPressed) {
 
-			System.out.println("add review pressed");
+		//	System.out.println("add review pressed");
 
 			String email = request.getParameter("email");
 			String rating = request.getParameter("rating");
@@ -186,6 +186,14 @@ public class Start extends HttpServlet {
 		} else if (payPressed) {
 
 			System.out.println("Pay pressed");
+			
+			// add the purchase order
+			
+			
+				//	database.addNewOrder(email,cart);
+
+			
+			
 			displayShippingPage(request, response);
 		} else {
 
