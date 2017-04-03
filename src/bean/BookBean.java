@@ -1,6 +1,7 @@
 package bean;
 
 public class BookBean {
+	private int id;
 	private String title;
 	private String price;
 	private String category;
@@ -47,6 +48,18 @@ public class BookBean {
 	public String getPicture() {
 		return this.picture;
 	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
 	
 	
 }
