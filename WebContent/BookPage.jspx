@@ -31,6 +31,7 @@
 			</c:when>
 
 			<c:otherwise>
+			    <span class="error"><font color="red">${error}</font></span>
 				<input type="text" name="book" value="${requestScope.title}" style="display: none;"></input>
 				<br />
 				<label>Rating:</label>

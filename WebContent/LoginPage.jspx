@@ -13,6 +13,8 @@
 </head>
 <body>
 	<form>
+		<span class="error"><font color="red">${error}</font></span>
+		<br />
 		<label>Email:</label>
 		<input type="text" name="email"></input><br/>
 		<label>Password:</label>

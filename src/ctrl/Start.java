@@ -30,6 +30,7 @@ public class Start extends HttpServlet {
 	String email;
 	ArrayList<String> visited;
 	double totalPrice;
+	String error;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -78,6 +79,7 @@ public class Start extends HttpServlet {
 
 		String bookPressed = request.getParameter("book");
 		String cartPressed = request.getParameter("cart");
+		error = null;
 
 		if (registerPressed) {
 
@@ -165,16 +167,25 @@ public class Start extends HttpServlet {
 
 			String bookname = title.substring(0, indexBy - 1);
 
-			if (email == null || email.equals("") || rating == null || rating.equals("")) {
-				// they messed up
+			if (email == null || email.equals("") || rating == null || rating.equals("") || review == null || review.equals("")) {
+				if(email.equals("")){
+					error = "Email cannot be empty";
+				}else if(rating.equals("")){
+					error = "Rating cannot be empty";
+				}
+				else if(review.equals("")){
+					error = "Review cannot be empty";
+				}
 			} else {
 				int indexDash = title.indexOf("-");
 
 				String author = title.substring(indexBy + 3, indexDash - 1);
 				boolean result = false;
 				try {
+					int rate = Integer.parseInt(rating);
 					result = database.addNewReview(email, author, rating, review, bookname);
 				} catch (NumberFormatException e) {
+					error = "Rating must be an integer.";
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
@@ -184,6 +195,10 @@ public class Start extends HttpServlet {
 			}
 
 			try {
+				if(error != null){
+					request.setAttribute("error", error);
+				}
+				
 				displayBookPage(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -446,11 +461,19 @@ public class Start extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		error = null;
 
 		// now we check the database for a matching result
 
 		if (email == null || email.equals("") || password == null || password.equals("")) {
-			// they messed up
+			if(email == null || password == null){
+				
+			}
+			else if(email.equals("")){
+				error = "Email cannot be empty";
+			}else if(password.equals("")){
+				error = "Password cannot be empty";
+			}
 		} else {
 			// try to log them in
 
@@ -474,6 +497,9 @@ public class Start extends HttpServlet {
 				System.out.println("login failed");
 			}
 		}
+		if(error != null){
+			request.setAttribute("error", error);
+		}
 
 		System.out.println("Login button pressed");
 		request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
@@ -492,6 +518,7 @@ public class Start extends HttpServlet {
 		String country = request.getParameter("country");
 		String zip = request.getParameter("zip");
 		String phone = request.getParameter("phone");
+		error = null;
 
 		if (email != null && password != null && fname != null && lname != null && address != null && province != null
 				&& country != null && zip != null && phone != null) {
@@ -503,11 +530,14 @@ public class Start extends HttpServlet {
 				request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
 				return;
 			} else {
+				error = "All of inputs must be entered";
 				System.out.println("you must input all fields");
 			}
 
 		}
-
+		if(error != null){
+			request.setAttribute("error", error);
+		}
 		System.out.println("Registration button pressed");
 		request.getRequestDispatcher("/RegisterPage.jspx").forward(request, response);
 
