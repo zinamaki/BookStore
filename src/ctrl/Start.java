@@ -27,6 +27,7 @@ public class Start extends HttpServlet {
 	int itemsInCart;
 	static ArrayList<String> cart;
 	boolean loggedIn;
+	String email;
 	ArrayList<String> visited;
 	double totalPrice;
 
@@ -46,6 +47,7 @@ public class Start extends HttpServlet {
 			this.itemsInCart = 0;
 			this.loggedIn = false;
 			this.totalPrice = 0;
+			this.email = "";
 
 		} catch (ClassNotFoundException e) {
 
@@ -190,7 +192,12 @@ public class Start extends HttpServlet {
 			// add the purchase order
 			
 			
-				//	database.addNewOrder(email,cart);
+			try {
+				database.addNewOrder(this.email,cart);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			
 			
@@ -444,6 +451,7 @@ public class Start extends HttpServlet {
 			if (login) {
 				System.out.println("login successful");
 				// now take them to the main page
+				this.email = email;
 				login();
 				displayMainPage(request, response);
 				return;
