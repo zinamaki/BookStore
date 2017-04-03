@@ -263,14 +263,14 @@ INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince
 INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'peter@gmail.com', 3, 'I like this book');
 INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'andy@gmail.com', 1, 'I hate this book');
 
---select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL
---from PO P, POItem I, Book B 
---where P.id = I.id and B.title = I.title and B.author = I.author
---group by P.email, B.title, B.author
---
---select C.email, sum(TOTAL) 
---from (select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL
---    from PO P, POItem I, Book B 
---    where P.id = I.id and B.title = I.title and B.author = I.author
---    group by P.email, B.title, B.author) as C
---group by C.email;
+--#select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL
+--#from PO P, POItem I, Book B 
+--#where P.id = I.id and B.title = I.title and B.author = I.author
+--#group by P.email, B.title, B.author
+--#
+--#select C.email, sum(TOTAL) 
+--#from (select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL
+--#    from PO P, POItem I, Book B 
+--#    where P.id = I.id and B.title = I.title and B.author = I.author
+--#    group by P.email, B.title, B.author) as C
+--#group by C.email;
