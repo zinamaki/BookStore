@@ -40,7 +40,7 @@ CREATE TABLE Book (
     id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 	title VARCHAR(200) NOT NULL,
 	author VARCHAR(20) NOT NULL,
-	price INT NOT NULL,
+	price float NOT NULL,
 	category varchar(40) NOT NULL,
 	picture varchar(200) NOT NULL,
 	PRIMARY KEY(title, author),
@@ -50,60 +50,60 @@ CREATE TABLE Book (
 --#
 --# Adding data for table 'Book'
 --#
-INSERT INTO Book (title, author, price, category, picture) VALUES ('Little Prince', 'John Johnson',  20, 'Fiction', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg');
-INSERT INTO Book (title, author, price, category, picture) VALUES ('Physics', 'Jeff Sions', 201, 'Science', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg');
-INSERT INTO Book (title, author, price, category, picture) VALUES ('Mechanics' ,'John Jims', 100,'Engineering', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg');
+INSERT INTO Book (title, author, price, category, picture) VALUES ('Little Prince', 'John Johnson',  20.00, 'Fiction', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg');
+INSERT INTO Book (title, author, price, category, picture) VALUES ('Physics', 'Jeff Sions', 20.10, 'Science', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg');
+INSERT INTO Book (title, author, price, category, picture) VALUES ('Mechanics' ,'John Jims', 10.00,'Engineering', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg');
 
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Canada', 'Mike Meyers', 2394, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/41OmMRigueL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Born a Crime', 'Trevor Noah', 2154, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/51JcuTsdUzL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Why Not Me?', 'Mindy Keiling', 1663, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/41ER04S8koL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'George Lucas: A life ', 'George Lucas', 3234, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/410%2BAs0I%2BoL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'You''ll Grow Out of It', 'Robert Munch', 2835, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/51BvNtfqCnL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Unshakeable: Your Financial Freedom Playbook', 'Tony Robbins', 35, 'Business','https://images-na.ssl-images-amazon.com/images/I/516Ic5gWnfL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Worth It: Your Life, Your Money, Your Terms', 'Amanda Steinberg', 3092, 'Business','https://images-na.ssl-images-amazon.com/images/I/51GwHDzd1IL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Triple Crown: Winning Canada''s Energy Future', 'Jim Prentice', 2779, 'Business','https://images-na.ssl-images-amazon.com/images/I/51I6zh7qGJL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'What''s Your Presentation Persona', 'Scott Schwertly', 3039, 'Business','https://images-na.ssl-images-amazon.com/images/I/51O498ahGFL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Radical Candor: Be a Kick-Ass Boss Without Loosing Your Humanity', 'Kim Scott', 3155, 'Business','https://images-na.ssl-images-amazon.com/images/I/41SR5qCOjNL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Love You Forever', 'Robert Munsch', 35, 'Children','https://images-na.ssl-images-amazon.com/images/I/612wpFrT0WL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Oh, The Places You''ll Go!', 'Dr. Seuss', 1299, 'Children','https://images-na.ssl-images-amazon.com/images/I/518eq5NjZkL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Very Hungry Caterpillar', 'Eric Carle', 1063, 'Children','https://images-na.ssl-images-amazon.com/images/I/41zqrOnjpTL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Goodnight Moon', 'Clement Hurd', 814, 'Children','https://images-na.ssl-images-amazon.com/images/I/51%2BmV1XUUQL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Happy Easter, Little Critter', 'Mercer Mayer', 499, 'Children','https://images-na.ssl-images-amazon.com/images/I/617h%2BGVkEmL._SL150_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Maison Ikkoku, Vol. 1: Welcome To Maison Ikkoku', 'Rumiko Takahashi', 64, 'Manga','https://images-na.ssl-images-amazon.com/images/I/517BT207RHL._AA218_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'One-Punch Man, Vol. 11', 'Yusuke Murata', 1299, 'Manga','https://images-na.ssl-images-amazon.com/images/I/51lk13MHbPL._AA218_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Legend of Zelda: Twilight Princess, Vol. 1', 'Akira Himekawa', 1286, 'Manga','https://images-na.ssl-images-amazon.com/images/I/51K8SprLM7L._AA218_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Uzumaki', 'Junji Ito', 268, 'Manga','https://images-na.ssl-images-amazon.com/images/I/51Ef1f4UnqL._AA218_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Mermaid Saga, Vol. 3', 'Rumiko Takahashi', 145, 'Manga','https://images-na.ssl-images-amazon.com/images/I/51RMQQWYXEL._AA218_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Kept from You (Tear Asunder Book 4)', 'Nashoda Rose', 1868, 'Erotica','https://images-na.ssl-images-amazon.com/images/I/51WoM9VJHKL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'I Want More (Bikers Rule Book 2)', 'Sam Crescent', 533, 'Erotica','https://images-na.ssl-images-amazon.com/images/I/5126Qr2Q0fL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Deep End: The Honey Series', 'Kristen Ashley', 399, 'Erotica','https://images-na.ssl-images-amazon.com/images/I/51wb6h+6GhL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Canada', 'Mike Meyers', 23.94, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/41OmMRigueL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Born a Crime', 'Trevor Noah', 21.54, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/51JcuTsdUzL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Why Not Me?', 'Mindy Keiling', 16.63, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/41ER04S8koL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'George Lucas: A life ', 'George Lucas', 32.34, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/410%2BAs0I%2BoL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'You''ll Grow Out of It', 'Robert Munch', 28.35, 'Biographies','https://images-na.ssl-images-amazon.com/images/I/51BvNtfqCnL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Unshakeable: Your Financial Freedom Playbook', 'Tony Robbins', 35.00, 'Business','https://images-na.ssl-images-amazon.com/images/I/516Ic5gWnfL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Worth It: Your Life, Your Money, Your Terms', 'Amanda Steinberg', 30.92, 'Business','https://images-na.ssl-images-amazon.com/images/I/51GwHDzd1IL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Triple Crown: Winning Canada''s Energy Future', 'Jim Prentice', 27.79, 'Business','https://images-na.ssl-images-amazon.com/images/I/51I6zh7qGJL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'What''s Your Presentation Persona', 'Scott Schwertly', 30.39, 'Business','https://images-na.ssl-images-amazon.com/images/I/51O498ahGFL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Radical Candor: Be a Kick-Ass Boss Without Loosing Your Humanity', 'Kim Scott', 31.55, 'Business','https://images-na.ssl-images-amazon.com/images/I/41SR5qCOjNL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Love You Forever', 'Robert Munsch', 35.00, 'Children','https://images-na.ssl-images-amazon.com/images/I/612wpFrT0WL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Oh, The Places You''ll Go!', 'Dr. Seuss', 12.99, 'Children','https://images-na.ssl-images-amazon.com/images/I/518eq5NjZkL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Very Hungry Caterpillar', 'Eric Carle', 10.63, 'Children','https://images-na.ssl-images-amazon.com/images/I/41zqrOnjpTL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Goodnight Moon', 'Clement Hurd', 8.14, 'Children','https://images-na.ssl-images-amazon.com/images/I/51%2BmV1XUUQL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Happy Easter, Little Critter', 'Mercer Mayer', 4.99, 'Children','https://images-na.ssl-images-amazon.com/images/I/617h%2BGVkEmL._SL150_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Maison Ikkoku, Vol. 1: Welcome To Maison Ikkoku', 'Rumiko Takahashi', 64.00, 'Manga','https://images-na.ssl-images-amazon.com/images/I/517BT207RHL._AA218_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'One-Punch Man, Vol. 11', 'Yusuke Murata', 12.99, 'Manga','https://images-na.ssl-images-amazon.com/images/I/51lk13MHbPL._AA218_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Legend of Zelda: Twilight Princess, Vol. 1', 'Akira Himekawa', 12.86, 'Manga','https://images-na.ssl-images-amazon.com/images/I/51K8SprLM7L._AA218_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Uzumaki', 'Junji Ito', 2.68, 'Manga','https://images-na.ssl-images-amazon.com/images/I/51Ef1f4UnqL._AA218_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Mermaid Saga, Vol. 3', 'Rumiko Takahashi', 1.45, 'Manga','https://images-na.ssl-images-amazon.com/images/I/51RMQQWYXEL._AA218_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Kept from You (Tear Asunder Book 4)', 'Nashoda Rose', 18.68, 'Erotica','https://images-na.ssl-images-amazon.com/images/I/51WoM9VJHKL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'I Want More (Bikers Rule Book 2)', 'Sam Crescent', 5.33, 'Erotica','https://images-na.ssl-images-amazon.com/images/I/5126Qr2Q0fL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Deep End: The Honey Series', 'Kristen Ashley', 3.99, 'Erotica','https://images-na.ssl-images-amazon.com/images/I/51wb6h+6GhL._AA200_.jpg');
 INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Way of the Superior Man: A Spiritual Guide to Mastering the Challenges of Women, Work, and Sexual Desire', 'David Deida', 1299, 'Erotica','https://images-na.ssl-images-amazon.com/images/I/516yjy1NueL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Couples’ Kama Sutra', 'Elizabeth Grath', 1986, 'Erotica','https://images-na.ssl-images-amazon.com/images/I/51hY957cBsL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Sapiens: A Brief History of Humankind', 'Yuval Noah Harrari', 10385, 'History','https://images-na.ssl-images-amazon.com/images/I/51a9YweAk5L._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Homo Deus: A Brief History of ', 'Yuval Noah Harrari', 20, 'History','https://images-na.ssl-images-amazon.com/images/I/410nNc5es2L._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Vimy: The Battle and the Legend', 'Tim Cook', 231, 'History','https://images-na.ssl-images-amazon.com/images/I/51vM3QHkMWL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'I''ll Be Damned: How My Young and Restless Life Led Me to America', 'Eric Braeden', 3221, 'History','https://images-na.ssl-images-amazon.com/images/I/51SXzrhKdXL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Lost City of the Monkey God: A True Story', 'Douglas Preston', 3771, 'History','https://images-na.ssl-images-amazon.com/images/I/61M4t0+zRGL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Whole30: The 30-Day Guide to Total Health and Food Freedom', 'Melissa Hartwig', 3474, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/61arqkCHljL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Skinnytaste Fast and Slow: Knockout Quick-Fix and Slow Cooker Recipes', 'Gina Homolka', 1799, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/51qNsBerPnL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Food Lab: Better Home Cooking Through Science', 'J.Kenzi Lopez-Alt', 2099, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/419aGgQt-5L._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Thug Kitchen 101: Fast as F*ck', 'Thug Kitchen', 1599, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/61Amj34tkbL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Cravings: Recipes for All the Food You Want to Eat', 'Chrissy Teigen', 2061, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/51HGuoYiOZL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'How to Win Friends and Influence People', 'Dale Carnegie', 4661, 'Education','https://images-na.ssl-images-amazon.com/images/I/41+7Y+I2kTL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change', 'Stephen R. Covey', 79, 'Education','https://images-na.ssl-images-amazon.com/images/I/51yd1Ef-v-L._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'StrengthsFinder 2.0', 'Tom Rath', 3458, 'Education','https://images-na.ssl-images-amazon.com/images/I/41EII0L2ciL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Official Guide to the GMAT Review 2017 Bundle', 'GMAC', 5006, 'Education','https://images-na.ssl-images-amazon.com/images/I/51I96rcqGVL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Start with Why: How Great Leaders Inspire Everyone to Take Action', 'Simon Sinek', 1139, 'Education','https://images-na.ssl-images-amazon.com/images/I/51fRj1bsD5L._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( '5 Love Languages', 'Gary Chapman', 899, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/51rV-3xwEJL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Lose Your Belly Diet: Change Your Gut, Change Your Life', 'Travis Stork', 3336, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/51OGNoi1LNL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The War of Art', 'Stephen Pressfield', 11751, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/41DwUdCY6xL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The One-Minute Workout', 'Martin Gibala', 216, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/51jNEk3TkGL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'How Not to Die', 'Micheal Greger', 1599, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/51pSVdCZdPL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Milk and Honey', 'Rupi Kaur', 6099, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/419QSlukZRL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Marriage Lie', 'Kimberly Belle', 4549, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/51GLi28ZzXL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Bob', 'Tegon Maus', 516, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/51gRoDivvdL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Woman in Cabin 10', 'Ruthe Ware', 1299, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/5152bP-jCBL._AA200_.jpg');
-INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Big Little Lies', 'Liane Moriarty', 3012, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/51RCEaRazQL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Couples’ Kama Sutra', 'Elizabeth Grath', 19.86, 'Erotica','https://images-na.ssl-images-amazon.com/images/I/51hY957cBsL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Sapiens: A Brief History of Humankind', 'Yuval Noah Harrari', 103.85, 'History','https://images-na.ssl-images-amazon.com/images/I/51a9YweAk5L._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Homo Deus: A Brief History of ', 'Yuval Noah Harrari', 20.00, 'History','https://images-na.ssl-images-amazon.com/images/I/410nNc5es2L._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Vimy: The Battle and the Legend', 'Tim Cook', 23.10, 'History','https://images-na.ssl-images-amazon.com/images/I/51vM3QHkMWL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'I''ll Be Damned: How My Young and Restless Life Led Me to America', 'Eric Braeden', 32.21, 'History','https://images-na.ssl-images-amazon.com/images/I/51SXzrhKdXL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Lost City of the Monkey God: A True Story', 'Douglas Preston', 37.71, 'History','https://images-na.ssl-images-amazon.com/images/I/61M4t0+zRGL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Whole30: The 30-Day Guide to Total Health and Food Freedom', 'Melissa Hartwig', 34.74, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/61arqkCHljL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Skinnytaste Fast and Slow: Knockout Quick-Fix and Slow Cooker Recipes', 'Gina Homolka', 17.99, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/51qNsBerPnL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Food Lab: Better Home Cooking Through Science', 'J.Kenzi Lopez-Alt', 20.99, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/419aGgQt-5L._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Thug Kitchen 101: Fast as F*ck', 'Thug Kitchen', 15.99, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/61Amj34tkbL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Cravings: Recipes for All the Food You Want to Eat', 'Chrissy Teigen', 20.61, 'Cookbook','https://images-na.ssl-images-amazon.com/images/I/51HGuoYiOZL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'How to Win Friends and Influence People', 'Dale Carnegie', 46.61, 'Education','https://images-na.ssl-images-amazon.com/images/I/41+7Y+I2kTL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change', 'Stephen R. Covey', 79.00, 'Education','https://images-na.ssl-images-amazon.com/images/I/51yd1Ef-v-L._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'StrengthsFinder 2.0', 'Tom Rath', 34.58, 'Education','https://images-na.ssl-images-amazon.com/images/I/41EII0L2ciL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Official Guide to the GMAT Review 2017 Bundle', 'GMAC', 50.06, 'Education','https://images-na.ssl-images-amazon.com/images/I/51I96rcqGVL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Start with Why: How Great Leaders Inspire Everyone to Take Action', 'Simon Sinek', 11.39, 'Education','https://images-na.ssl-images-amazon.com/images/I/51fRj1bsD5L._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( '5 Love Languages', 'Gary Chapman', 8.99, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/51rV-3xwEJL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Lose Your Belly Diet: Change Your Gut, Change Your Life', 'Travis Stork', 33.36, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/51OGNoi1LNL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The War of Art', 'Stephen Pressfield', 117.51, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/41DwUdCY6xL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The One-Minute Workout', 'Martin Gibala', 2.16, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/51jNEk3TkGL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'How Not to Die', 'Micheal Greger', 15.99, 'Health and Fitness','https://images-na.ssl-images-amazon.com/images/I/51pSVdCZdPL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Milk and Honey', 'Rupi Kaur', 60.99, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/419QSlukZRL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Marriage Lie', 'Kimberly Belle', 45.49, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/51GLi28ZzXL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Bob', 'Tegon Maus', 5.16, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/51gRoDivvdL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'The Woman in Cabin 10', 'Ruthe Ware', 12.99, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/5152bP-jCBL._AA200_.jpg');
+INSERT INTO Book ( title, author, price, category, picture) VALUES ( 'Big Little Lies', 'Liane Moriarty', 30.12, 'Literature and Fiction','https://images-na.ssl-images-amazon.com/images/I/51RCEaRazQL._AA200_.jpg');
 
 CREATE TABLE Status (
     status varchar(20) not null,
@@ -182,6 +182,7 @@ CREATE TABLE PO (
 INSERT INTO PO (email, status, address) VALUES ('john@gmail.com', 'PROCESSED', 1);
 INSERT INTO PO (email, status, address) VALUES ('peter@gmail.com', 'DENIED', 2);
 INSERT INTO PO (email, status, address) VALUES ('andy@gmail.com', 'ORDERED', 3);
+INSERT INTO PO (email, status, address) VALUES ('john@gmail.com', 'PROCESSED', 1);
 
 /* Items on order
 * id : purchase order id
