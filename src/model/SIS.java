@@ -96,6 +96,11 @@ public class SIS {
 			return null;
 		}
 	}
+
+	public boolean reviewExists(String title, String email) throws SQLException {
+		// TODO Auto-generated method stub
+		return reviewDAO.reviewExists(title, email);
+	}
 	
 	
 	

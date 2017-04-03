@@ -98,7 +98,12 @@ public class Start extends HttpServlet {
 
 		} else if (bookPressed != null && !addReviewPressed) {
 
-			displayBookPage(request, response);
+			try {
+				displayBookPage(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else if (cartPressed != null) {
 
@@ -178,7 +183,12 @@ public class Start extends HttpServlet {
 				}
 			}
 
-			displayBookPage(request, response);
+			try {
+				displayBookPage(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else if (checkoutPressed) {
 
@@ -360,7 +370,7 @@ public class Start extends HttpServlet {
 	 */
 
 	private void displayBookPage(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, SQLException {
 
 		// now we should get the name of the book, the name of the author and
 		// display it in jspx
@@ -375,8 +385,17 @@ public class Start extends HttpServlet {
 		request.setAttribute("messageList", display);
 		request.setAttribute("title", title);
 		request.setAttribute("loggedIn", this.loggedIn);
+
+		request.setAttribute("reviewed", reviewed(bookname));
+
 		request.getRequestDispatcher("/BookPage.jspx").forward(request, response);
 
+	}
+
+	private boolean reviewed(String title) throws SQLException {
+		// TODO Auto-generated method stub
+			
+		return database.reviewExists(title,this.email);
 	}
 
 	private void displayShoppingPage(HttpServletRequest request, HttpServletResponse response)
@@ -481,7 +500,8 @@ public class Start extends HttpServlet {
 					&& !phone.equals("")) {
 
 				database.addNewUser(email, password, fname, lname, address, province, country, zip, phone);
-
+				request.getRequestDispatcher("/LoginPage.jspx").forward(request, response);
+				return;
 			} else {
 				System.out.println("you must input all fields");
 			}

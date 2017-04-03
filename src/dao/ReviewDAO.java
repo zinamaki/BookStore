@@ -99,6 +99,35 @@ public class ReviewDAO {
 
 	}
 	
+	public boolean reviewExists(String title, String email) throws SQLException{
+		
+		String exists = "select count(*) as count from review where email = '"+ email + "' and title = '" + title + "'";
+		System.out.println(exists);
+		Connection con = this.ds.getConnection();
+		PreparedStatement p = con.prepareStatement(exists);
+		ResultSet r = p.executeQuery();
+		// Insert a new user into the Users table
+		r.next();
+		
+		int count = r.getInt("count");
+		
+		p.close();
+		
+		con.close();
+		System.out.println(count);
+
+		if(count == 0){
+			return false;
+		}else{
+			return true;
+		}
+		
+		
+		
+		
+		
+	}
+	
 	public boolean addReview(String title, String author, String email, int rating, String review) {
 		
 		try {
