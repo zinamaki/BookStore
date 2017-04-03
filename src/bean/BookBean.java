@@ -5,13 +5,15 @@ public class BookBean {
 	private String price;
 	private String category;
 	private String author;
+	private String picture;
 	
-	public BookBean(String title, String author, String price, String category) {
+	public BookBean(String title, String author, String price, String category, String picture) {
 
 		this.title = title;
 		this.author = author;
 		this.price = price;
 		this.category = category;
+		this.picture = picture;
 	}
 	
 	public String getTitle() {
@@ -42,7 +44,9 @@ public class BookBean {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+	public String getPicture() {
+		return this.picture;
+	}
 	
 	
 }

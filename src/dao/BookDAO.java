@@ -43,8 +43,9 @@ public class BookDAO {
 				String price = r.getString("PRICE");
 				String category = r.getString("CATEGORY");
 				String author = r.getString("AUTHOR");
-
-				BookBean tmp = new BookBean(title, author, price, category);
+				String picture = r.getString("PICTURE");
+				
+				BookBean tmp = new BookBean(title, author, price, category,picture);
 
 				String counterString = Integer.toString(counter);
 
