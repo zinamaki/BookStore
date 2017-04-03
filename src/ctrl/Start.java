@@ -25,7 +25,7 @@ public class Start extends HttpServlet {
 
 	SIS database;
 	int itemsInCart;
-	ArrayList<String> cart;
+	static ArrayList<String> cart;
 	boolean loggedIn;
 	ArrayList<String> visited;
 	double totalPrice;
@@ -267,7 +267,7 @@ public class Start extends HttpServlet {
 	/*
 	 * Return the number of copies of a particular book in the shopping cart
 	 */
-	private int numInCart(String book) {
+	public static int numInCart(String book) {
 
 		int counter = 0;
 

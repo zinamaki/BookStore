@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +65,7 @@ public class SIS {
 		
 	}	
 	
-	public boolean addNewOrder(String email, Map<BookBean, Integer> cart) throws SQLException{
+	public boolean addNewOrder(String email, ArrayList<String> cart) throws SQLException{
 		return this.purchaseDAO.submitOrder(email, cart);
 	}
 	
