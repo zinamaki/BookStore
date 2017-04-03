@@ -67,7 +67,7 @@ private DataSource ds;
 		
 	}
 	
-	public String retrieveById(String id) throws Exception{
+	public String getProductInfo(String id) throws Exception{
 		int intId = Integer.parseInt(id);
 		String query = "select * from book where id =" + intId;
 		Map<String, BookBean> res = runQuery(query);
@@ -77,13 +77,11 @@ private DataSource ds;
 		
 		BookBean b = res.get(id);
 		b.setId(intId);
-		
-		return "<html><body>" 
-				+ "<img src='" + b.getPicture() + "' width='200' height='300' />" 
+		System.out.println(b.getTitle());
+		return "<img src='" + b.getPicture() + "' width='200' height='300' />" 
 				+ "<h1>" + b.getTitle() + "</h1>" 
 				+ "<h2>" + b.getAuthor() + "</h2>"
 				+ "<h3>" + b.getPrice() + "</h3>"
-				+ "<h4>"+ b.getCategory() + "</h4>"
-				+ "</body></html>";		
+				+ "<h4>"+ b.getCategory() + "</h4>";		
 	}
 }

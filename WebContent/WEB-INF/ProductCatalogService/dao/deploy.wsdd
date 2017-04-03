@@ -10,10 +10,10 @@
       <parameter name="className" value="dao.ProductCatalog"/>
       <parameter name="wsdlPortType" value="ProductCatalog"/>
       <parameter name="typeMappingVersion" value="1.2"/>
-      <operation xmlns:operNS="http://dao" xmlns:retNS="http://dao" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="retrieveById" qname="operNS:retrieveById" returnQName="retNS:retrieveByIdReturn" returnType="rtns:string" soapAction="">
+      <operation xmlns:operNS="http://dao" xmlns:retNS="http://dao" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getProductInfo" qname="operNS:getProductInfo" returnQName="retNS:getProductInfoReturn" returnType="rtns:string" soapAction="">
         <parameter xmlns:pns="http://dao" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:string"/>
       </operation>
-      <parameter name="allowedMethods" value="retrieveById"/>
+      <parameter name="allowedMethods" value="getProductInfo"/>
 
   </service>
 </deployment>
