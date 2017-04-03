@@ -112,8 +112,11 @@ public class PurchaseDAO {
 			int dollar = item.indexOf("$");
 			String price = item.substring(dollar + 1, item.length());
 
-			String update = "INSERT INTO POItem (id, title, author, price, quantity) VALUES (" + poId + ", '" + bookname
-					+ "', '" + author + "', " + price + ", " + Start.numInCart(bookname) + ")";
+			String update = "INSERT INTO POItem (id, title, author, quantity) VALUES (" + poId + ", '" + bookname
+					+ "', '" + author + "', " + Start.numInCart(item) + ")";
+			
+			System.out.println(update);
+			
 			sta.executeUpdate(update);
 		}
 	}
