@@ -1,50 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
-	<jsp:directive.page contentType="text/html; charset=UTF-8" 
-		pageEncoding="UTF-8" session="false"/>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8" session="false" />
 	<jsp:output doctype-root-element="html"
 		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
 		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
 		omit-xml-declaration="true" />
-<html xmlns="http://www.w3.org/1999/xhtml">
+	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Insert title here</title>
 </head>
 <body>
 	Here is the book you saw: ${requestScope.title}
-	<br/>
-	<br/>
-	Write a review
-	<br/>
-	<br/>
+	<br />
+	<br /> Write a review
+	<br />
+	<br />
 	<form>
-		<input type="text" name="book" value="${requestScope.title}"></input><br/>
-		<label>Email:</label> <input type="text" name="email" required="true"></input><br />
-		<label>Rating:</label> <input type="text" name="rating"></input><br />
-		<label>Review:</label> <input type="text" name="review"></input><br />
-		
-		<input type="submit" name="addReview" value="Review"></input><br/>
+
+		<c:choose>
+			<c:when test="${reviewed}">You have already reviewed this</c:when>
+			<c:otherwise>
+				<input type="text" name="book" value="${requestScope.title}"></input>
+				<br />
+				<label>Email:</label>
+				<input type="text" name="email" required="true"></input>
+				<br />
+				<label>Rating:</label>
+				<input type="number" name="rating"></input>
+				<br />
+				<label>Review:</label>
+				<input type="text" name="review"></input>
+				<br />
+				<input type="submit" name="addReview" value="Review"></input>
+				<br />
+			</c:otherwise>
+		</c:choose>
+
+
 	</form>
-	
+
 	<table id="result" border="1">
+		<tr>
+			<th>Book</th>
+			<th>User</th>
+			<th>Review</th>
+		</tr>
+		<c:forEach var="msg" items="${requestScope.messageList}">
 			<tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Author</th>
-            </tr>			
-			<c:forEach var="msg" items="${requestScope.messageList}">
-                <tr>
-                    <td>${msg[1]}</td>
-                    <td>${msg[2]}</td>
-                    <td>${msg[3]}</td>
-                    <td>${msg[4]}</td>
-                </tr>
-                <br/>
-            </c:forEach>    	
-		</table>
-	
-	
+				<td>${msg[1]}</td>
+				<td>${msg[2]}</td>
+				<td>${msg[3]}</td>
+			</tr>
+			<br />
+		</c:forEach>
+	</table>
+
+
 </body>
-</html>
+	</html>
 </jsp:root>

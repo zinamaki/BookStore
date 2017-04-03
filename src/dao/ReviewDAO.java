@@ -99,8 +99,8 @@ public class ReviewDAO {
 
 	}
 	
-	public UserBean addReview(String title, String author, String email, int rating, String review) {
-		UserBean user = null;
+	public boolean addReview(String title, String author, String email, int rating, String review) {
+		
 		try {
 			Connection con = this.ds.getConnection();
 			Statement st = con.createStatement();
@@ -110,13 +110,13 @@ public class ReviewDAO {
 					+ "', '" + email + "', " + rating + ", '" + review + "')";
 			st.executeUpdate(updateUser);
 			st.close();
-
+			
 			con.close();
-
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return user;
+			return false;
+		} 
+		
 	}
 	
 	

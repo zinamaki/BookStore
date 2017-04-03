@@ -58,9 +58,9 @@ public class SIS {
 		
 	}
 	
-	public void addNewReview(String email, String author, String rating, String review, String title) throws NumberFormatException, SQLException {
+	public boolean addNewReview(String email, String author, String rating, String review, String title) throws NumberFormatException, SQLException {
 		
-		this.reviewDAO.addReview(title, author,email,Integer.parseInt(rating),review);
+		return this.reviewDAO.addReview(title, author,email,Integer.parseInt(rating),review);
 		
 	}	
 	

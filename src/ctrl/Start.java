@@ -70,7 +70,7 @@ public class Start extends HttpServlet {
 		boolean addReviewPressed = "Review".equals(request.getParameter("addReview"));
 		boolean checkoutPressed = "Checkout".equals(request.getParameter("checkout"));
 		boolean payPressed = "Pay".equals(request.getParameter("pay"));
-		
+
 		String deleteQuantityPressed = request.getParameter("deleteQuantity");
 		String updateQuantityPressed = request.getParameter("updateQuantity");
 
@@ -146,46 +146,47 @@ public class Start extends HttpServlet {
 			deleteBookCart(bookToRemove);
 			displayShoppingPage(request, response);
 
-		} else if (addReviewPressed){
-			
+		} else if (addReviewPressed) {
+
 			System.out.println("add review pressed");
-			
+
 			String email = request.getParameter("email");
 			String rating = request.getParameter("rating");
 			String review = request.getParameter("review");
 			String title = request.getParameter("book");
-			
+
 			int indexBy = title.indexOf("by");
-			
-			String bookname = title.substring(0,indexBy-1);
-			
+
+			String bookname = title.substring(0, indexBy - 1);
+
 			if (email == null || email.equals("") || rating == null || rating.equals("")) {
 				// they messed up
 			} else {
-			int indexDash = title.indexOf("-");
-			
-			String author = title.substring(indexBy+3,indexDash-1);
+				int indexDash = title.indexOf("-");
 
-			try {
-				database.addNewReview(email, author, rating,review,bookname);
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				String author = title.substring(indexBy + 3, indexDash - 1);
+				boolean result = false;
+				try {
+					result = database.addNewReview(email, author, rating, review, bookname);
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-			}
-			displayBookPage(request,response);
-			
-		} else if(checkoutPressed){
-			
+
+			displayBookPage(request, response);
+
+		} else if (checkoutPressed) {
+
 			System.out.println("Checkout pressed");
 			displayPaymentPage(request, response);
-		} else if(payPressed){
-			
+		} else if (payPressed) {
+
 			System.out.println("Pay pressed");
-			displayShippingPage(request,response);
+			displayShippingPage(request, response);
 		} else {
 
 			displayMainPage(request, response);
@@ -193,15 +194,17 @@ public class Start extends HttpServlet {
 		}
 
 	}
-	
-	private void displayShippingPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private void displayShippingPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.getRequestDispatcher("/ShippingPage.jspx").forward(request, response);
-		
+
 	}
 
-	private void displayPaymentPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void displayPaymentPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.getRequestDispatcher("/PaymentPage.jspx").forward(request, response);
-		
+
 	}
 
 	private void updateBookCart(String bookToUpdate, String quantity) {
@@ -351,16 +354,16 @@ public class Start extends HttpServlet {
 		// now we should get the name of the book, the name of the author and
 		// display it in jspx
 		String title = request.getParameter("book");
-		
+
 		int indexBy = title.indexOf("by");
-		
-		String bookname = title.substring(0,indexBy-1);
-		
-		
+
+		String bookname = title.substring(0, indexBy - 1);
+
 		String[][] display = getAllReviews(bookname);
-		
+
 		request.setAttribute("messageList", display);
 		request.setAttribute("title", title);
+		// request.setAttribute("reviewed", true);
 		request.getRequestDispatcher("/BookPage.jspx").forward(request, response);
 
 	}
@@ -491,9 +494,9 @@ public class Start extends HttpServlet {
 	 * This group of methods gets the resuls from the database and puts it in a
 	 * 2d array to be easily displayed
 	 */
-	
+
 	private String[][] getAllReviews(String titles) {
-		
+
 		try {
 
 			Map<String, ReviewBean> result = this.database.retrieveByBook(titles);
@@ -505,11 +508,10 @@ public class Start extends HttpServlet {
 				String title = result.get(Integer.toString(i)).getTitle();
 				String author = result.get(Integer.toString(i)).getAuthor();
 				String review = result.get(Integer.toString(i)).getReview();
-			
+
 				output[i][1] = title;
 				output[i][2] = author;
 				output[i][3] = review;
-		
 
 			}
 			return output;
@@ -517,7 +519,6 @@ public class Start extends HttpServlet {
 			return null;
 		}
 	}
-	
 
 	private String[][] getAllResults(String search) {
 		// TODO Auto-generated method stub
@@ -584,7 +585,7 @@ public class Start extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		doGet(request, response);
 	}
 
