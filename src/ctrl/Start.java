@@ -217,6 +217,7 @@ public class Start extends HttpServlet {
 
 			try {
 				database.addNewOrder(this.email, cart);
+				database.updateStatus();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

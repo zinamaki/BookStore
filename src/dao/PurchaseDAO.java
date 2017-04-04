@@ -125,10 +125,7 @@ public class PurchaseDAO {
 		Connection con = this.ds.getConnection();
 
 		Statement stmt = con.createStatement();
-
-		String sql = "UPDATE PO " + "SET status='denied' WHERE MOD(ind, 3) = 0";
-		stmt.executeUpdate(sql);
-		sql = "UPDATE PO " + "SET status='processed' WHERE status='ordered'";
+		String sql = "UPDATE PO " + "SET status='processed' WHERE status='ordered'";
 		stmt.executeUpdate(sql);
 		stmt.close();
 		con.close();

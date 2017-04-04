@@ -74,6 +74,10 @@ public class SIS {
 		return this.purchaseDAO.submitOrder(email, cart);
 	}
 	
+	public void updateStatus() throws SQLException{
+		this.purchaseDAO.updateStatus();
+	}
+	
 	public void createPurchaseEvents(ArrayList<String> cart){
 		for (String item : cart) {
 
