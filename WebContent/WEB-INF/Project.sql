@@ -230,7 +230,7 @@ INSERT INTO EventType (eventtype) VALUES ('PURCHASE');
 * eventtype: status of purchase
 */
 CREATE TABLE VisitEvent (
-	day varchar(8) NOT NULL,
+	day varchar(14) NOT NULL,
 	title VARCHAR(200) NOT NULL,
     author VARCHAR(20) NOT NULL,
 	eventtype varchar(20) NOT NULL,
@@ -241,9 +241,9 @@ CREATE TABLE VisitEvent (
 --#
 --# Dumping data for table 'VisitEvent'
 --#
-INSERT INTO VisitEvent (day, title, author, eventtype) VALUES ('12202015', 'Little Prince', 'John Johnson', 'VIEW');
-INSERT INTO VisitEvent (day, title, author, eventtype) VALUES ('12242015', 'Little Prince', 'John Johnson', 'CART');
-INSERT INTO VisitEvent (day, title, author, eventtype) VALUES ('12252015', 'Little Prince', 'John Johnson', 'PURCHASE');
+INSERT INTO VisitEvent (day, title, author, eventtype) VALUES ('12202015120244', 'Little Prince', 'John Johnson', 'VIEW');
+INSERT INTO VisitEvent (day, title, author, eventtype) VALUES ('12242015130234', 'Little Prince', 'John Johnson', 'CART');
+INSERT INTO VisitEvent (day, title, author, eventtype) VALUES ('12252015150311', 'Little Prince', 'John Johnson', 'PURCHASE');
 
 
 CREATE TABLE Review (
@@ -263,10 +263,11 @@ INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince
 INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'peter@gmail.com', 3, 'I like this book');
 INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince', 'John Johnson', 'andy@gmail.com', 1, 'I hate this book');
 
---#select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL
---#from PO P, POItem I, Book B 
---#where P.id = I.id and B.title = I.title and B.author = I.author
---#group by P.email, B.title, B.author
+--select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL
+--from PO P, POItem I, Book B 
+--where P.id = I.id and B.title = I.title and B.author = I.author
+--group by P.email, B.title, B.author
+--order by P.email;
 --#
 --#select C.email, sum(TOTAL) 
 --#from (select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL
@@ -274,3 +275,13 @@ INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince
 --#    where P.id = I.id and B.title = I.title and B.author = I.author
 --#    group by P.email, B.title, B.author) as C
 --#group by C.email;
+
+--#select PI.title, PI.author, sum(PI.quantity) as TOTAl
+--#from POItem PI
+--#group by PI.title, PI.author
+--#order  by PI.title, PI.author;
+
+--#select V.title, V.author, count(*) as TOTAl
+--#from VisitEvent V
+--#group by V.title, V.author
+--#order by v.title, V.author;

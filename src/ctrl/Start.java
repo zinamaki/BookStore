@@ -362,6 +362,16 @@ public class Start extends HttpServlet {
 
 		cart.add(book);
 
+		int indexBy = book.indexOf("by");
+
+		String bookname = book.substring(0, indexBy - 1);
+		System.out.println(bookname);
+		int indexDash = book.indexOf("-");
+		String author = book.substring(indexBy + 3, indexDash - 1);
+		System.out.println(author);
+		
+		this.database.createVisitEvent(bookname, author, "CART");
+
 		// now we increase the total price
 
 		int dollar = book.indexOf("$");
@@ -394,6 +404,11 @@ public class Start extends HttpServlet {
 		int indexBy = title.indexOf("by");
 
 		String bookname = title.substring(0, indexBy - 1);
+		int indexDash = title.indexOf("-");
+		String author = title.substring(indexBy + 3, indexDash - 1);
+		System.out.println(author);
+		
+		this.database.createVisitEvent(bookname, author, "VIEW");
 
 		String[][] display = getAllReviews(bookname);
 

@@ -22,10 +22,12 @@ import org.xml.sax.SAXException;
 import bean.BookBean;
 import bean.ReviewBean;
 import bean.UserBean;
+import ctrl.Start;
 import dao.BookDAO;
 import dao.PurchaseDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
+import dao.VisitDAO;
 
 public class SIS {
 
@@ -33,6 +35,7 @@ public class SIS {
 	private PurchaseDAO purchaseDAO;
 	private ReviewDAO reviewDAO;
 	private UserDAO userDAO;
+	private VisitDAO visitDAO;
 
 	public SIS() throws ClassNotFoundException {
 		super();
@@ -40,6 +43,7 @@ public class SIS {
 		this.purchaseDAO = new PurchaseDAO();
 		this.reviewDAO = new ReviewDAO();
 		this.userDAO = new UserDAO();
+		this.visitDAO = new VisitDAO();
 	}
 
 	public Map<String, BookBean> retrieveAllBooks() {
@@ -66,7 +70,23 @@ public class SIS {
 	}	
 	
 	public boolean addNewOrder(String email, ArrayList<String> cart) throws SQLException{
+		this.createPurchaseEvents(cart);
 		return this.purchaseDAO.submitOrder(email, cart);
+	}
+	
+	public void createPurchaseEvents(ArrayList<String> cart){
+		for (String item : cart) {
+
+			int indexBy = item.indexOf("by");
+
+			String bookname = item.substring(0, indexBy - 1);
+
+			int indexDash = item.indexOf("-");
+
+			String author = item.substring(indexBy + 3, indexDash - 1);
+
+			this.createVisitEvent(bookname, author, "PURCHASE");
+		}
 	}
 	
 	public boolean loginUser(String email, String password) throws SQLException{
@@ -98,9 +118,29 @@ public class SIS {
 	}
 
 	public boolean reviewExists(String title, String email) throws SQLException {
-		// TODO Auto-generated method stub
 		return reviewDAO.reviewExists(title, email);
 	}
+	
+	public void createVisitEvent(String title, String author, String event){
+		visitDAO.createVisitEvent(title, author, event);
+	}
+	
+	public List<String[]> getAllPurchasesByEmail(){
+		return visitDAO.getAllPurchasesByEmail();
+	}
+	
+	public List<String[]> getTotalPurchasedByEmail(){
+		return visitDAO.getTotalPurchasedByEmail();
+	}
+	
+	public List<String[]> getMostBoughtBooks(){
+		return visitDAO.getMostBoughtBooks();
+	}
+	
+	public List<String[]> getMostPopularBooks(){
+		return visitDAO.getMostPopularBooks();
+	}
+	
 	
 	
 	
