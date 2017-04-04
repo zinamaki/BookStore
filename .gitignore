@@ -3,3 +3,4 @@
 .classpath
 build/classes/.DS_Store
 src/.DS_Store
+/target/
