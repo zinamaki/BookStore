@@ -401,6 +401,7 @@ public class Start extends HttpServlet {
 		// now we should get the name of the book, the name of the author and
 		// display it in jspx
 		String title = request.getParameter("book");
+		
 
 		int indexBy = title.indexOf("by");
 

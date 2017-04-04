@@ -98,11 +98,8 @@ private DataSource ds;
 		JAXBContext jc = JAXBContext.newInstance(b.getClass());
 		
 		SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		String filename = "";
-		int end = filename.indexOf("/export/");
-        String path = filename.substring(0, end + 8);
 		
-		Schema schema = sf.newSchema(new File(path + "book.xsd"));
+		Schema schema = sf.newSchema(new File("po.xsd"));
 		
 		Marshaller marshaller = jc.createMarshaller();
 		

@@ -285,3 +285,9 @@ INSERT INTO Review (title, author, email, rating, review) VALUES ('Little Prince
 --#from VisitEvent V
 --#group by V.title, V.author
 --#order by v.title, V.author;
+
+--select A.email, B.title, B.author, B.price, PI.quantity, P.id as POID, P.status, A.street, A.province, A.country, A.zip
+--from BOOK B, PO P, POITEM PI, ADDRESS A
+--where B.id = 1 and B.title = PI.title and B.author = PI.author 
+--    and P.id = PI.id and P.email = A.email and P.address = A.id
+--order by A.email, B.title, B.author, B.price, PI.quantity, P.id, P.status, A.street, A.province, A.country, A.zip;
