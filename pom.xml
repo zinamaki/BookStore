@@ -38,5 +38,17 @@
   		<artifactId>jersey-bundle</artifactId>
   		<version>1.19.1</version>
   	</dependency>
+  	<!-- https://mvnrepository.com/artifact/com.sun.jersey.contribs/jersey-multipart -->
+	<dependency>
+	    <groupId>com.sun.jersey.contribs</groupId>
+	    <artifactId>jersey-multipart</artifactId>
+	    <version>1.19.1</version>
+	</dependency>
+    <!-- https://mvnrepository.com/artifact/org.jvnet/mimepull -->
+	<dependency>
+	    <groupId>org.jvnet</groupId>
+	    <artifactId>mimepull</artifactId>
+	    <version>1.1</version>
+	</dependency>
   </dependencies>
 </project>
