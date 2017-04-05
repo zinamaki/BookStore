@@ -19,7 +19,7 @@ import model.SIS;
 /**
  * Servlet implementation class Start
  */
-@WebServlet("/Start")
+@WebServlet({"/Start","/Admin"})
 public class Start extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -81,6 +81,13 @@ public class Start extends HttpServlet {
 		String cartPressed = request.getParameter("cart");
 		error = null;
 
+		boolean purchaseEmail = "Purchase Email".equals(request.getParameter("purchaseEmail"));
+		boolean totalEmail = "Total Email".equals(request.getParameter("totalEmail"));
+		boolean boughtBook = "Bought Book".equals(request.getParameter("boughtBook"));
+		boolean popularBook = "Shopping Cart".equals(request.getParameter("popularBook"));
+
+		boolean adminPage = request.getRequestURI().endsWith("Admin");
+		
 		if (registerPressed) {
 
 			displayRegisterPage(request, response);
@@ -224,7 +231,28 @@ public class Start extends HttpServlet {
 			}
 
 			displayShippingPage(request, response);
-		} else {
+		} else if(purchaseEmail){
+			
+			System.out.println("purchase email");
+			
+		} else if(totalEmail){
+			
+			System.out.println("total emai");
+			
+		} else if(boughtBook){
+			
+			System.out.println("bought book");
+			
+		} else if(popularBook){
+			
+			System.out.println("popular book");
+			
+		} else if(adminPage){
+			System.out.println("admin page");
+			request.getRequestDispatcher("/AnalyticsPage.jspx").forward(request, response);
+		}
+		
+		else {
 
 			displayMainPage(request, response);
 
