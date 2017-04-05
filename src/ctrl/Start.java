@@ -491,6 +491,8 @@ public class Start extends HttpServlet {
 		request.setAttribute("cartItems", visited);
 		request.setAttribute("quantities", quantities);
 		request.setAttribute("totalPrice", this.totalPrice);
+
+		request.setAttribute("loggedIn", this.loggedIn);
 		request.getRequestDispatcher("/ShoppingCartPage.jspx").forward(request, response);
 
 	}
@@ -589,6 +591,7 @@ public class Start extends HttpServlet {
 			request.setAttribute("error", error);
 		}
 		System.out.println("Registration button pressed");
+		request.setAttribute("loggedIn", this.loggedIn);
 		request.getRequestDispatcher("/RegisterPage.jspx").forward(request, response);
 
 	}
@@ -620,10 +623,13 @@ public class Start extends HttpServlet {
 				String title = result.get(Integer.toString(i)).getTitle();
 				String author = result.get(Integer.toString(i)).getAuthor();
 				String review = result.get(Integer.toString(i)).getReview();
-
+				int rating = result.get(Integer.toString(i)).getRating();
+				String email = result.get(Integer.toString(i)).getEmail();
+				
 				output[i][1] = title;
-				output[i][2] = author;
+				output[i][2] = email;
 				output[i][3] = review;
+				output[i][4] = Integer.toString(rating);
 
 			}
 			return output;
