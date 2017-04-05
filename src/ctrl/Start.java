@@ -361,6 +361,7 @@ public class Start extends HttpServlet {
 				int dollar = item.indexOf("$");
 				String price = item.substring(dollar + 1, item.length());
 				this.totalPrice -= Double.parseDouble(price);
+				
 			}
 
 		}
@@ -597,7 +598,7 @@ public class Start extends HttpServlet {
 
 		String[][] display = getAllResults(search);
 		request.setAttribute("messageList", display);
-		request.getRequestDispatcher("/SearchPage.jspx").forward(request, response);
+		request.getRequestDispatcher("/MainPage.jspx").forward(request, response);
 
 	}
 
