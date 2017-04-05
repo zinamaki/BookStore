@@ -19,7 +19,7 @@ import model.SIS;
 /**
  * Servlet implementation class Start
  */
-@WebServlet({"/Start","/Admin"})
+@WebServlet({ "/Start", "/Admin" })
 public class Start extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -87,7 +87,7 @@ public class Start extends HttpServlet {
 		boolean popularBook = "Shopping Cart".equals(request.getParameter("popularBook"));
 
 		boolean adminPage = request.getRequestURI().endsWith("Admin");
-		
+
 		if (registerPressed) {
 
 			displayRegisterPage(request, response);
@@ -174,13 +174,13 @@ public class Start extends HttpServlet {
 
 			String bookname = title.substring(0, indexBy - 1);
 
-			if (email == null || email.equals("") || rating == null || rating.equals("") || review == null || review.equals("")) {
-				if(email.equals("")){
+			if (email == null || email.equals("") || rating == null || rating.equals("") || review == null
+					|| review.equals("")) {
+				if (email.equals("")) {
 					error = "Email cannot be empty";
-				}else if(rating.equals("")){
+				} else if (rating.equals("")) {
 					error = "Rating cannot be empty";
-				}
-				else if(review.equals("")){
+				} else if (review.equals("")) {
 					error = "Review cannot be empty";
 				}
 			} else {
@@ -202,10 +202,10 @@ public class Start extends HttpServlet {
 			}
 
 			try {
-				if(error != null){
+				if (error != null) {
 					request.setAttribute("error", error);
 				}
-				
+
 				displayBookPage(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -231,27 +231,31 @@ public class Start extends HttpServlet {
 			}
 
 			displayShippingPage(request, response);
-		} else if(purchaseEmail){
-			
+		} else if (purchaseEmail) {
+
 			System.out.println("purchase email");
-			
-		} else if(totalEmail){
-			
+
+		} else if (totalEmail) {
+
 			System.out.println("total emai");
-			
-		} else if(boughtBook){
-			
+
+		} else if (boughtBook) {
+
 			System.out.println("bought book");
-			
-		} else if(popularBook){
-			
+
+		} else if (popularBook) {
+
 			System.out.println("popular book");
-			
-		} else if(adminPage){
+
+		} else if (adminPage) {
 			System.out.println("admin page");
+			request.setAttribute("messageList", this.database.getAllPurchasesByEmail());
+			request.setAttribute("messageList1", this.database.getTotalPurchasedByEmail());
+			request.setAttribute("messageList2", this.database.getMostBoughtBooks());
+			request.setAttribute("messageList3", this.database.getMostPopularBooks());
 			request.getRequestDispatcher("/AnalyticsPage.jspx").forward(request, response);
 		}
-		
+
 		else {
 
 			displayMainPage(request, response);
@@ -398,7 +402,7 @@ public class Start extends HttpServlet {
 		int indexDash = book.indexOf("-");
 		String author = book.substring(indexBy + 3, indexDash - 1);
 		System.out.println(author);
-		
+
 		this.database.createVisitEvent(bookname, author, "CART");
 
 		// now we increase the total price
@@ -429,7 +433,6 @@ public class Start extends HttpServlet {
 		// now we should get the name of the book, the name of the author and
 		// display it in jspx
 		String title = request.getParameter("book");
-		
 
 		int indexBy = title.indexOf("by");
 
@@ -437,7 +440,7 @@ public class Start extends HttpServlet {
 		int indexDash = title.indexOf("-");
 		String author = title.substring(indexBy + 3, indexDash - 1);
 		System.out.println(author);
-		
+
 		this.database.createVisitEvent(bookname, author, "VIEW");
 
 		String[][] display = getAllReviews(bookname);
@@ -454,8 +457,8 @@ public class Start extends HttpServlet {
 
 	private boolean reviewed(String title) throws SQLException {
 		// TODO Auto-generated method stub
-			
-		return database.reviewExists(title,this.email);
+
+		return database.reviewExists(title, this.email);
 	}
 
 	private void displayShoppingPage(HttpServletRequest request, HttpServletResponse response)
@@ -511,12 +514,11 @@ public class Start extends HttpServlet {
 		// now we check the database for a matching result
 
 		if (email == null || email.equals("") || password == null || password.equals("")) {
-			if(email == null || password == null){
-				
-			}
-			else if(email.equals("")){
+			if (email == null || password == null) {
+
+			} else if (email.equals("")) {
 				error = "Email cannot be empty";
-			}else if(password.equals("")){
+			} else if (password.equals("")) {
 				error = "Password cannot be empty";
 			}
 		} else {
@@ -542,7 +544,7 @@ public class Start extends HttpServlet {
 				System.out.println("login failed");
 			}
 		}
-		if(error != null){
+		if (error != null) {
 			request.setAttribute("error", error);
 		}
 
@@ -580,7 +582,7 @@ public class Start extends HttpServlet {
 			}
 
 		}
-		if(error != null){
+		if (error != null) {
 			request.setAttribute("error", error);
 		}
 		System.out.println("Registration button pressed");

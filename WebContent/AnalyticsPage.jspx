@@ -14,27 +14,75 @@
 </head>
 <body>
 	<form>
-	<button type="submit" name="purchaseEmail" value="Purchase Email">Get
-		all purchases by email</button>
-	<button type="submit" name="totalEmail" value="Total Email">Get
-		total purchased by email</button>
-	<button type="submit" name="boughtBook" value="Bought Book">Get
-		most bought books</button>
-	<button type="submit" name="popularBook" value="Shopping Cart">Get
-		most popular books</button>
 
 </form>
+	All Purchases By Email
 	<table id="result" border="1">
 		<tr>
-			<th>Book</th>
-			<th>User</th>
-			<th>Review</th>
+			<th>Email</th>
+			<th>Title</th>
+			<th>Author</th>
+			<th>Total</th>
 		</tr>
 		<c:forEach var="msg" items="${requestScope.messageList}">
 			<tr>
+				<td>${msg[0]}</td>
 				<td>${msg[1]}</td>
 				<td>${msg[2]}</td>
 				<td>${msg[3]}</td>
+			</tr>
+			<br />
+		</c:forEach>
+	</table>
+	
+	Get total purchased by email
+	
+	<table id="result" border="1">
+		<tr>
+			<th>Email</th>
+			<th>Total</th>
+		</tr>
+		<c:forEach var="msg" items="${requestScope.messageList1}">
+			<tr>
+				<td>${msg[0]}</td>
+				<td>${msg[1]}</td>
+			</tr>
+			<br />
+		</c:forEach>
+	</table>
+	Get most bought books
+
+	
+		<table id="result" border="1">
+		<tr>
+			<th>Title</th>
+			<th>Author</th>
+			<th>Total</th>
+		</tr>
+		<c:forEach var="msg" items="${requestScope.messageList2}">
+			<tr>
+				<td>${msg[0]}</td>
+				<td>${msg[1]}</td>
+				<td>${msg[2]}</td>
+			</tr>
+			<br />
+		</c:forEach>
+	</table>
+	
+		Get most popular books
+		<table id="result" border="1">
+		<tr>
+
+			<th>Title</th>
+			<th>Author</th>
+			<th>Total</th>
+		</tr>
+		<c:forEach var="msg" items="${requestScope.messageList3}">
+			<tr>
+				<td>${msg[0]}</td>
+				<td>${msg[1]}</td>
+				<td>${msg[2]}</td>
+			
 			</tr>
 			<br />
 		</c:forEach>

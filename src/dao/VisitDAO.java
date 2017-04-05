@@ -49,7 +49,7 @@ private DataSource ds;
 		String query = "select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL"
 							+ " from PO P, POItem I, Book B "
 							+ " where P.id = I.id and B.title = I.title and B.author = I.author "
-							+ " group by P.email, B.title, B.author"
+							+ " group by P.email, B.title, B.author "
 							+ "order by P.email";
 		
 		List<String[]> result = null;
@@ -77,7 +77,7 @@ private DataSource ds;
 	}
 	
 	public List<String[]> getTotalPurchasedByEmail(){
-		String query = "select C.email, sum(TOTAL) "
+		String query = "select C.email, sum(TOTAL) as total"
 				+ " from (select P.email, B.title, B.author, sum(B.price * I.quantity) as TOTAL "
 				+ " from PO P, POItem I, Book B " 
 				+ " where P.id = I.id and B.title = I.title and B.author = I.author "
@@ -119,10 +119,10 @@ private DataSource ds;
 			ResultSet r = p.executeQuery();
 			result = new ArrayList<String[]>();
 			while(r.next()){
-				String email = r.getString("email");
+				String title = r.getString("title");
 				String author = r.getString("author");
 				int total = r.getInt("total");
-				String[] array = {email, author, Integer.toString(total)};
+				String[] array = {title, author, Integer.toString(total)};
 				result.add(array);
 			}
 			r.close();
@@ -135,9 +135,9 @@ private DataSource ds;
 		return result;
 	}
 	public List<String[]> getMostPopularBooks(){
-		String query = "select V.title, V.author, count(*) as TOTAl"
-						+ "from VisitEvent V"
-						+ "group by V.title, V.author"
+		String query = "select V.title, V.author, count(*) as TOTAl "
+						+ "from VisitEvent V "
+						+ "group by V.title, V.author "
 						+ "order by v.title, V.author";
 		List<String[]> result = null;
 		try {
@@ -146,10 +146,10 @@ private DataSource ds;
 			ResultSet r = p.executeQuery();
 			result = new ArrayList<String[]>();
 			while(r.next()){
-				String email = r.getString("email");
+				String title = r.getString("title");
 				String author = r.getString("author");
 				int total = r.getInt("total");
-				String[] array = {email, author, Integer.toString(total)};
+				String[] array = {title, author, Integer.toString(total)};
 				result.add(array);
 			}
 			r.close();
