@@ -640,7 +640,7 @@ public class Start extends HttpServlet {
 
 			System.out.println(result.size());
 
-			String[][] output = new String[result.size()][5];
+			String[][] output = new String[result.size()][6];
 
 			for (int i = 0; i < result.size(); i++) {
 
@@ -648,11 +648,13 @@ public class Start extends HttpServlet {
 				String price = result.get(Integer.toString(i)).getPrice();
 				String category = result.get(Integer.toString(i)).getCategory();
 				String author = result.get(Integer.toString(i)).getAuthor();
-
+				String picture = result.get(Integer.toString(i)).getPicture();
+				
 				output[i][1] = title;
 				output[i][2] = price;
 				output[i][3] = category;
 				output[i][4] = author;
+				output[i][5] = picture;
 
 			}
 			return output;
