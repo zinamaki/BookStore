@@ -124,6 +124,8 @@ public class Start extends HttpServlet {
 
 			String search = request.getParameter("search");
 
+			System.out.println("They pressed search");
+			
 			if (search != null) {
 
 				// if they searched then take them to the search page
@@ -133,7 +135,7 @@ public class Start extends HttpServlet {
 
 				// if they did not search anything, then take them to the
 				// homepage
-
+				
 				displayMainPage(request, response);
 			}
 
